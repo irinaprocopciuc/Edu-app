@@ -1,0 +1,48 @@
+@import "../../../styles/colors";
+@import "../../../styles/mixins";
+
+.login-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mat-card {
+    @include rainbow-shadow;
+    width: 400px;
+    padding: 30px;
+
+    mat-card-header {
+      display: flex;
+      justify-content: center;
+      mat-card-title {
+        color: $dark-grey;
+        font-size: 28px;
+      }
+    }
+
+    .inputs-container {
+      form {
+        display: flex;
+        flex-direction: column;
+
+        mat-form-field {
+          ::ng-deep {
+            .mat-form-field-wrapper {
+              margin-bottom: 16px;
+            }
+          }
+        }
+
+        button {
+          background-color: $pink;
+        }
+      }
+      .register-btn {
+        width: 100%;
+        margin-top: 16px;
+        color: $pink;
+      }
+    }
+  }
+}

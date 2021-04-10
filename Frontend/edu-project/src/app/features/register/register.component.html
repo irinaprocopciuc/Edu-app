@@ -1,0 +1,167 @@
+<div class="register-container">
+  <mat-card>
+    <form
+      class="register-form"
+      [formGroup]="registerForm"
+      (ngSubmit)="register(registerForm.value)"
+    >
+      <h2>Register</h2>
+      <div class="form-field-container">
+       <div class="left-group">
+        <mat-form-field class="register-form-field">
+          <input matInput placeholder="Name" formControlName="name" />
+          <mat-error
+            *ngIf="
+              !registerForm.controls['name'].valid &&
+              registerForm.controls['name'].touched
+            "
+          >
+            Name is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="register-form-field">
+          <input matInput placeholder="Username" formControlName="username" />
+          <mat-error
+            *ngIf="
+              !registerForm.controls['username'].valid &&
+              registerForm.controls['username'].touched
+            "
+          >
+            Username is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="register-form-field">
+          <input
+            matInput
+            placeholder="Email"
+            type="email"
+            formControlName="email"
+          />
+          <mat-error
+            *ngIf="
+              !registerForm.controls['email'].valid &&
+              registerForm.controls['email'].touched
+            "
+          >
+            Email is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="register-form-field">
+          <input
+            matInput
+            placeholder="Password"
+            type="password"
+            formControlName="password"
+          />
+          <mat-error
+            *ngIf="
+              !registerForm.controls['password'].valid &&
+              registerForm.controls['password'].touched
+            "
+          >
+            Password is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="register-form-field">
+          <input
+            matInput
+            placeholder="Confirm password"
+            type="password"
+            formControlName="repassword"
+          />
+          <mat-error
+            *ngIf="
+              !registerForm.controls['repassword'].valid &&
+              registerForm.controls['repassword'].touched
+            "
+          >
+            Rentering password is required
+          </mat-error>
+        </mat-form-field>
+       </div>
+        <div class="right-group">
+          <mat-form-field class="register-form-field">
+            <input
+              matInput
+              placeholder="User type"
+              formControlName="userType"
+            />
+            <mat-error
+              *ngIf="
+                !registerForm.controls['userType'].valid &&
+                registerForm.controls['userType'].touched
+              "
+            >
+              User type is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="register-form-field">
+            <input
+              matInput
+              placeholder="Year of study"
+              type="number"
+              formControlName="yearOfStudy"
+            />
+            <mat-error
+              *ngIf="
+                !registerForm.controls['yearOfStudy'].valid &&
+                registerForm.controls['yearOfStudy'].touched
+              "
+            >
+              Year is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="register-form-field">
+            <input
+              matInput
+              placeholder="Semester"
+              type="number"
+              formControlName="semester"
+            />
+            <mat-error
+              *ngIf="
+                !registerForm.controls['semester'].valid &&
+                registerForm.controls['semester'].touched
+              "
+            >
+              Semester is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="register-form-field">
+            <mat-label>
+              Faculty
+            </mat-label>
+            <mat-select formControlName="faculty">
+              <mat-option *ngFor="let faculty of faculties" [value]="faculty.value">
+                {{faculty.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="register-form-field">
+            <mat-label>
+              Specialization
+            </mat-label>
+            <mat-select formControlName="specName">
+              <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                {{spec.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="buttons-container">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!registerForm.valid"
+        >
+          Register
+        </button>
+        <button class="btn-pink" mat-button color="accent" (click)="onReset()">Cancel</button>
+        <button class="btn-pink" mat-button color="accent" (click)="backToLogin()">
+          Back to Login
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

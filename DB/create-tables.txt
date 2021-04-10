@@ -1,0 +1,117 @@
+CREATE TABLE `edu`.`proposedtheme` (
+  `idTheme` INT NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `details` VARCHAR(45) NULL,
+  `technologies` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idTheme`),
+  UNIQUE INDEX `idTheme_UNIQUE` (`idTheme` ASC) VISIBLE);
+
+CREATE TABLE `edu`.`teacher` (
+  `idTeacher` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `specialization` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idTeacher`),
+  UNIQUE INDEX `idTeacher_UNIQUE` (`idTeacher` ASC) VISIBLE);
+
+
+CREATE TABLE `edu`.`themelist` (
+  `idthemelist` INT NOT NULL,
+  `idTeacher` INT NULL,
+  `idTheme` INT NULL,
+  PRIMARY KEY (`idthemelist`),
+  INDEX `idTeacher_idx` (`idTeacher` ASC) VISIBLE,
+  INDEX `idTheme_idx` (`idTheme` ASC) VISIBLE,
+  CONSTRAINT `idTeacher`
+    FOREIGN KEY (`idTeacher`)
+    REFERENCES `edu`.`teacher` (`idTeacher`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idTheme`
+    FOREIGN KEY (`idTheme`)
+    REFERENCES `edu`.`proposedtheme` (`idTheme`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `edu`.`class` (
+  `idclass` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `numberofcredits` VARCHAR(45) NOT NULL,
+  `idTeacherC` INT NULL,
+  PRIMARY KEY (`idclass`),
+  UNIQUE INDEX `idclass_UNIQUE` (`idclass` ASC) VISIBLE,
+  INDEX `idTeacher_idx` (`idTeacherC` ASC) VISIBLE,
+  CONSTRAINT `idTeacherC`
+    FOREIGN KEY (`idTeacherC`)
+    REFERENCES `edu`.`teacher` (`idTeacher`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `edu`.`user` (
+  `idUser` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `pass` VARCHAR(45) NOT NULL,
+  `userType` VARCHAR(45) NOT NULL,
+  `yearOfStudy` VARCHAR(45) NULL,
+  `semester` VARCHAR(45) NULL,
+  `idSpecialization` VARCHAR(45) NULL,
+  UNIQUE INDEX `idUser_UNIQUE` (`idUser` ASC) VISIBLE,
+  PRIMARY KEY (`idUser`)
+ CONSTRAINT `idSpecialization` 
+    FOREIGN KEY `idSpecialization` 
+    REFERENCES `edu`.`specialization` (`idSpec`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `edu`.`evaluation` (
+  `idEvaluation` INT NOT NULL,
+  `deadline` VARCHAR(45) NOT NULL,
+  `details` VARCHAR(45) NULL,
+  `grade` VARCHAR(45) NULL,
+  `percentFromFinalGrade` VARCHAR(45) NULL,
+  `idUserE` INT NULL,
+  `idClassE` INT NULL,
+  PRIMARY KEY (`idEvaluation`),
+  UNIQUE INDEX `idEvaluation_UNIQUE` (`idEvaluation` ASC) VISIBLE,
+  INDEX `idUserE_idx` (`idUserE` ASC) VISIBLE,
+  INDEX `idClassE_idx` (`idClassE` ASC) VISIBLE,
+  CONSTRAINT `idUserE`
+    FOREIGN KEY (`idUserE`)
+    REFERENCES `edu`.`user` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idClassE`
+    FOREIGN KEY (`idClassE`)
+    REFERENCES `edu`.`class` (`idclass`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `edu`.`chosentheme` (
+  `idChosenTheme` INT NOT NULL,
+  `idThemeListCT` INT NULL,
+  `idUserCT` INT NULL,
+  PRIMARY KEY (`idChosenTheme`),
+  UNIQUE INDEX `idChosenTheme_UNIQUE` (`idChosenTheme` ASC) VISIBLE,
+  INDEX `idUserCT_idx` (`idUserCT` ASC) VISIBLE,
+  INDEX `idThemeListCT_idx` (`idThemeListCT` ASC) VISIBLE,
+  CONSTRAINT `idThemeListCT`
+    FOREIGN KEY (`idThemeListCT`)
+    REFERENCES `edu`.`themelist` (`idthemelist`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idUserCT`
+    FOREIGN KEY (`idUserCT`)
+    REFERENCES `edu`.`user` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `edu`.`specialization` (
+  `idSpec` INT NOT NULL,
+  `faculty` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idSpec`));
+

@@ -1,0 +1,67 @@
+@import "../../../styles/colors";
+@import "../../../styles/mixins";
+
+.register-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mat-card {
+    @include rainbow-shadow;
+    width: 60%;
+    padding: 30px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        color: $dark-grey;
+        font-size: 28px;
+        text-align: center;
+      }
+
+      .form-field-container {
+        display: flex;
+
+        .left-group, .right-group {
+          display: flex;
+          flex-direction: column;
+          width: 47%;
+        }
+
+        .left-group {
+          margin-right: 20px;
+        }
+
+        mat-form-field {
+          ::ng-deep {
+            .mat-form-field-wrapper {
+              margin-bottom: 16px;
+            }
+          }
+        }
+      }
+
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        button {
+          background-color: $pink;
+        }
+
+        .btn-pink {
+          margin-top: 16px;
+          color: $pink;
+          background-color: white;
+        }
+      }
+    }
+    .register-btn {
+      width: 100%;
+      margin-top: 16px;
+      color: $pink;
+    }
+  }
+}
