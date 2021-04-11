@@ -96,12 +96,14 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="register-form-field">
-            <input
-              matInput
-              placeholder="Year of study"
-              type="number"
-              formControlName="yearOfStudy"
-            />
+            <mat-label>
+              Year of study
+            </mat-label>
+            <mat-select formControlName="yearOfStudy">
+              <mat-option *ngFor="let year of yearOfStudyArr" [value]="year.value">
+                {{year.viewValue}}
+              </mat-option>
+            </mat-select>
             <mat-error
               *ngIf="
                 !registerForm.controls['yearOfStudy'].valid &&
@@ -112,12 +114,14 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="register-form-field">
-            <input
-              matInput
-              placeholder="Semester"
-              type="number"
-              formControlName="semester"
-            />
+            <mat-label>
+              Semester
+            </mat-label>
+            <mat-select formControlName="semester">
+              <mat-option *ngFor="let sem of semesterArr" [value]="sem.value">
+                {{sem.viewValue}}
+              </mat-option>
+            </mat-select>
             <mat-error
               *ngIf="
                 !registerForm.controls['semester'].valid &&

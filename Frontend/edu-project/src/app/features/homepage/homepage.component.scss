@@ -1,0 +1,26 @@
+@import '../../../styles/colors';
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  height: 8%;
+  background-color: $yellow;
+
+  button {
+    width: 110px;
+    color: white;
+    font-weight: bold;
+  }
+}
+
+.page-content {
+  height: 92%;
+  display: flex;
+  flex-direction: row;
+
+  .left-side {
+    width: 20%;
+    background-color: white;
+    box-shadow: 7px 7px 2px 1px rgba(188, 188, 238, 0.2);
+  }
+}

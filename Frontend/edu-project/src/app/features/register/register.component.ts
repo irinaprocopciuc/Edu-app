@@ -12,13 +12,17 @@ import { LoginRegisterService } from 'src/app/core/services/login-register.servi
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  foods = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
   faculties = [];
   specs = [];
+  yearOfStudyArr = [
+    {value: 1, viewValue: 1},
+    {value: 2, viewValue: 2},
+    {value: 3, viewValue: 3}
+  ];
+  semesterArr = [
+    {value: 1, viewValue: 1},
+    {value: 2, viewValue: 2}
+  ]
 
   constructor(
     private readonly formBuilder: FormBuilder,

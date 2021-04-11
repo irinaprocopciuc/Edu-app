@@ -58,19 +58,26 @@ public class LoginRegister implements LoginRegisterInterface {
 	public boolean addUser(RegisterDetails credentials) {
 		int userID = this.generateUserID();
 		String specId;
+		String yearSemId;
 		if (userID != -1) {
 			try {
 				Statement stmt = conn.createStatement();
+
 				ResultSet rs = stmt.executeQuery("select idSpec from specialization where faculty ='"
 						+ credentials.getFaculty() + "' and name='" + credentials.getSpecName() + "';");
 				rs.next();
-				specId=rs.getString(1);
+				specId = rs.getString(1);
+
+				ResultSet res = stmt.executeQuery("select idYearSemester from yearsemester where yearOfStudy ='"
+						+ credentials.getYearOfStudy() + "' and semester='" + credentials.getSemester() + "';");
+				res.next();
+				yearSemId = res.getString(1);
+
 				stmt.executeUpdate(
-						"insert into user (idUser, name, email, username, pass, userType, yearOfStudy, semester, idSpecialization) values ('"
+						"insert into user (idUser, name, email, username, pass, userType, idSpecialization, idYearSemester) values ('"
 								+ userID + "', '" + credentials.getName() + "', '" + credentials.getEmail() + "', '"
 								+ credentials.getUsername() + "', '" + credentials.getPassword() + "', '"
-								+ credentials.getUserType() + "', '" + credentials.getYearOfStudy() + "', '"
-								+ credentials.getSemester() + "', '" + specId + "');");
+								+ credentials.getUserType() + "', '" + yearSemId + "', '" + specId + "');");
 				return true;
 			} catch (SQLException e) {
 				e.printStackTrace();

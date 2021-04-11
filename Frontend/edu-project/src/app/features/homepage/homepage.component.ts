@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginRegisterService } from 'src/app/core/services/login-register.service';
 
 @Component({
   selector: 'app-homepage',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly loginService: LoginRegisterService,
+    private readonly router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    this.loginService.setActiveUser(null);
+    this.router.navigate(['login']);
   }
 
 }

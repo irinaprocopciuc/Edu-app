@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(this.loginForm.getRawValue()).subscribe(
       (resp) => {
         this.errorService.displaySuccessToast(resp['message'], '');
+        this.loginService.setActiveUser(resp['userId']);
         this.router.navigate(['homepage']);
+        this.loginService.getActiveUser().subscribe(res => {console.log(res)});
       },
       err => {
         if (err.error.code === '401') {

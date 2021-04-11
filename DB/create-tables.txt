@@ -115,3 +115,9 @@ CREATE TABLE `edu`.`specialization` (
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idSpec`));
 
+
+CREATE TABLE `edu`.`yearsemester` (
+  `idYearSemester` INT NOT NULL,
+  `yearOfStudy` VARCHAR(45) NOT NULL,
+  `semester` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idYearSemester`));
