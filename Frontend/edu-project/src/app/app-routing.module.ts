@@ -19,7 +19,11 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'homepage',
+    path: ':user_id',
+    component: HomepageComponent
+  },
+  {
+    path: ':user_id/homepage',
     component: HomepageComponent
   }
 ];

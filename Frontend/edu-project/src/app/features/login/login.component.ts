@@ -33,8 +33,7 @@ export class LoginComponent implements OnInit {
       (resp) => {
         this.errorService.displaySuccessToast(resp['message'], '');
         this.loginService.setActiveUser(resp['userId']);
-        this.router.navigate(['homepage']);
-        this.loginService.getActiveUser().subscribe(res => {console.log(res)});
+        this.router.navigate([`${resp['userId']}/homepage`]);
       },
       err => {
         if (err.error.code === '401') {

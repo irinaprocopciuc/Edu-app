@@ -1,4 +1,4 @@
-@import '../../../styles/colors';
+@import "../../../styles/colors";
 
 .header {
   display: flex;
@@ -20,7 +20,43 @@
 
   .left-side {
     width: 20%;
+    margin: 10px;
     background-color: white;
     box-shadow: 7px 7px 2px 1px rgba(188, 188, 238, 0.2);
+
+    h2 {
+      color: #4a93ff;
+      font-size: 21px;
+      padding-top: 10px;
+    }
+
+    .course-tile {
+      cursor: pointer;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 10px;
+      margin-bottom: 10px;
+      color: $dark-grey;
+      font-weight: bold;
+      font-size: 16px;
+
+      &:hover {
+        background-color: rgb(250, 241, 231);
+      }
+
+      .credits {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50px;
+        background-color: $peach;
+        color: white;
+      }
+
+    }
   }
 }
