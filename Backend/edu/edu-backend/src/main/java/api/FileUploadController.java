@@ -1,7 +1,6 @@
 package api;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,42 +9,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import model.LoginDetails;
-import service.LoginService;
+import service.FileUploadService;
 
-@RequestMapping(value = "/login")
+@RequestMapping(value = "")
 @RestController
-public class LoginController {
+public class FileUploadController {
 
-	private final LoginService loginService;
+	private final FileUploadService uploadService;
 	
 	@Autowired
-	public LoginController(LoginService loginService) {
-		this.loginService = loginService;
+	public FileUploadController(FileUploadService uploadService) {
+		this.uploadService = uploadService;
 	}
 	
-	@PostMapping(path = "/checkUser")
-	public ResponseEntity<String> login(@RequestBody LoginDetails loginInfo, HttpServletResponse r) throws JsonProcessingException {
+	@PostMapping(path = "/uploadFile")
+	public ResponseEntity<String> login(@RequestParam("file") MultipartFile fileDetails, HttpServletResponse r) throws JsonProcessingException {
+		System.out.println("ddddddddddddddddddddddddddddddd");
 		Map<String,Object> map = new HashMap<>();
-		System.out.println(loginInfo.getUsername());
-		List<Map<String, String>> resp = loginService.checkUser(loginInfo);
-        if(resp.isEmpty()){
+		boolean resp = uploadService.uploadFile(fileDetails);
+        if(resp == false){
             map.put("status", HttpStatus.UNAUTHORIZED);
             map.put("code", "401");
-            map.put("message","Login failed, try again!");
+            map.put("message","File not uploaded!");
             return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map), HttpStatus.UNAUTHORIZED);
         }else{
             map.put("status", HttpStatus.OK);
             map.put("code", "200");
-            map.put("message","Login successful!");
-            map.put("userDetails", resp);
+            map.put("message","File uploaded!");
             return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map), HttpStatus.OK);
         }
 	}

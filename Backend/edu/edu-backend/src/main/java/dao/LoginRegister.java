@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,18 +30,23 @@ public class LoginRegister implements LoginRegisterInterface {
 	}
 
 	@Override
-	public int checkUser(LoginDetails credentials) {
+	public List<Map<String, String>> checkUser(LoginDetails credentials) {
+		List<Map<String, String>> userDetails = new ArrayList<>();
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select iduser from user where username ='" + credentials.getUsername()
+			ResultSet rs = stmt.executeQuery("select iduser, name from user where username ='" + credentials.getUsername()
 					+ "' and pass='" + credentials.getPassword() + "';");
-			if (rs.next()) {
-				return rs.getInt(1);
+			while (rs.next()) {
+				Map<String, String> response = new HashMap<>();
+				response.put("iduser", rs.getString(1));
+				response.put("name", rs.getString(2));
+				userDetails.add(response);
 			}
+			return userDetails;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return -1;
+		return userDetails;
 	}
 
 	@Override

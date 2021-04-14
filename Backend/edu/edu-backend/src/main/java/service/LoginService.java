@@ -1,5 +1,8 @@
 package service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,7 @@ public class LoginService {
 		this.db = db;
 	}
 
-	public int checkUser(LoginDetails credentials) {
+	public List<Map<String, String>> checkUser(LoginDetails credentials) {
 		return db.checkUser(credentials);
 	}
 }

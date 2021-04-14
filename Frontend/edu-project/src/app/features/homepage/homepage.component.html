@@ -8,10 +8,31 @@
     <div class="course-tile" *ngFor="let course of coursesList">
       {{ course.name }}
 
-      <div  class="credits" matTooltip="Number of credits">
+      <div class="credits" matTooltip="Number of credits">
         {{ course.credits }}
       </div>
     </div>
   </div>
-  <div class="right-side"></div>
+  <div class="right-side">
+    <form enctype="multipart/form-data">
+      <input
+        type="file"
+        class="file-input"
+        (change)="onFileSelected($event)"
+        #fileUpload
+      />
+      <div class="file-upload">
+        {{ fileName || "No file uploaded yet." }}
+
+        <button
+          mat-mini-fab
+          color="primary"
+          class="upload-btn"
+          (click)="fileUpload.click()"
+        >
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

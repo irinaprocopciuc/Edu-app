@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRegisterService } from 'src/app/core/services/login-register.service';
+import { LoginResp } from '../types/user-details';
 
 @Component({
   selector: 'app-login',
@@ -30,10 +31,11 @@ export class LoginComponent implements OnInit {
   login(): void {
     console.log(this.loginForm.getRawValue());
     this.loginService.loginUser(this.loginForm.getRawValue()).subscribe(
-      (resp) => {
-        this.errorService.displaySuccessToast(resp['message'], '');
-        this.loginService.setActiveUser(resp['userId']);
-        this.router.navigate([`${resp['userId']}/homepage`]);
+      (resp: LoginResp) => {
+        let userId = resp.userDetails[0].iduser;
+        this.errorService.displaySuccessToast(resp.message, '');
+        this.loginService.setActiveUser(userId);
+        this.router.navigate([`${userId}/homepage`]);
       },
       err => {
         if (err.error.code === '401') {
