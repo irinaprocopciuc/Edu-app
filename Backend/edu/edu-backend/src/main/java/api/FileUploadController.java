@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +31,8 @@ public class FileUploadController {
 		this.uploadService = uploadService;
 	}
 	
-	@PostMapping(path = "/uploadFile")
-	public ResponseEntity<String> login(@RequestParam("file") MultipartFile fileDetails, HttpServletResponse r) throws JsonProcessingException {
+	@PostMapping(path = "/uploadFile", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> login(@RequestParam("fileDetails") MultipartFile fileDetails, HttpServletResponse r) throws JsonProcessingException {
 		System.out.println("ddddddddddddddddddddddddddddddd");
 		Map<String,Object> map = new HashMap<>();
 		boolean resp = uploadService.uploadFile(fileDetails);

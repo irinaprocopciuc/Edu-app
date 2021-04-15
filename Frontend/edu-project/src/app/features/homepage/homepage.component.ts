@@ -40,9 +40,10 @@ export class HomepageComponent implements OnInit {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append('file', file);
-      this.uploadService.uploadFile(formData).subscribe(res => {
-        console.log(res);
-      })
+      this.uploadService.uploadFile(formData).subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      );
       console.log(file);
     }
   }
