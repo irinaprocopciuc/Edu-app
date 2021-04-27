@@ -6,5 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UploadFileInterface {
 	
 
-	boolean uploadFile(MultipartFile fileDetails);
+	boolean storeFile(MultipartFile fileDetails,String courseName);
 }

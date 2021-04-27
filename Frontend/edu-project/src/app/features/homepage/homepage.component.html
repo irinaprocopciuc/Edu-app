@@ -5,15 +5,18 @@
 <div class="page-content">
   <div class="left-side">
     <h2>Available Courses</h2>
-    <div class="course-tile" *ngFor="let course of coursesList">
+    <div
+      class="course-tile"
+      *ngFor="let course of coursesList"
+      (click)="selectCourse(course)"
+    >
       {{ course.name }}
-
       <div class="credits" matTooltip="Number of credits">
         {{ course.credits }}
       </div>
     </div>
   </div>
-  <div class="right-side">
+  <div class="right-side" *ngIf="courseSelected">
     <form >
       <input
         type="file"

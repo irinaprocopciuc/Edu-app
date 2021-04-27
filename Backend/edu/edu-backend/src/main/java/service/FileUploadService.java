@@ -17,8 +17,8 @@ public class FileUploadService {
 		this.db = db;
 	}
 	
-	public boolean uploadFile(MultipartFile fileDetails) {
-		return db.uploadFile(fileDetails);
+	public boolean storeFile(MultipartFile fileDetails,String courseName) {
+		return db.storeFile(fileDetails,courseName);
 	}
 	
 }

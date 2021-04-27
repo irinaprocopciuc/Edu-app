@@ -26,7 +26,7 @@ public class Main {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+		config.addAllowedOriginPattern(CorsConfiguration.ALL);
 		config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
 		source.registerCorsConfiguration("/**", config);

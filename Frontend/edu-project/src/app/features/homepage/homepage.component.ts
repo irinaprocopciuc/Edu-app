@@ -4,6 +4,7 @@ import { CoursesService } from 'src/app/core/services/courses.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { LoginRegisterService } from 'src/app/core/services/login-register.service';
 import { Course } from 'src/app/core/types/course';
+import { UploadFileModel } from 'src/app/core/types/upload-file-model';
 
 @Component({
   selector: 'app-homepage',
@@ -14,6 +15,8 @@ export class HomepageComponent implements OnInit {
   activeUser;
   coursesList: Course[];
   fileName = '';
+  courseSelected = false;
+  selectedCourse: Course;
 
   constructor(
     private readonly loginService: LoginRegisterService,
@@ -34,16 +37,25 @@ export class HomepageComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  selectCourse(course: Course): void {
+    this.courseSelected = true;
+    this.selectedCourse = course;
+    console.log(course);
+  }
+
   onFileSelected(event) {
     const file:File = event.target.files[0];
     if (file) {
+      let uploadFileObject: UploadFileModel = {file: null, course: ''};
       this.fileName = file.name;
       const formData = new FormData();
       formData.append('file', file);
-      this.uploadService.uploadFile(formData).subscribe(
-        (res) => console.log(res),
-        (err) => console.log(err)
-      );
+      if (formData) {
+        this.uploadService.uploadFile(formData, this.selectedCourse.name).subscribe(
+          (res) => console.log(res),
+          (err) => console.log(err)
+        );
+      }
       console.log(file);
     }
   }
