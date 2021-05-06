@@ -1,0 +1,56 @@
+@import "src/styles/colors";
+
+.chat-page {
+  height: 92%;
+  display: flex;
+  flex-direction: row;
+
+  .people-container {
+    width: 20%;
+    margin: 10px;
+    background-color: white;
+    box-shadow: 7px 7px 2px 1px rgba(188, 188, 238, 0.2);
+
+    h2 {
+      color: $purple;
+      font-size: 21px;
+      padding-top: 10px;
+      padding-left: 10px;
+    }
+
+    .username {
+      display: flex;
+      padding: 10px;
+
+      &:hover {
+        background-color: $beige;
+        cursor: pointer;
+      }
+      img {
+        width: 20px;
+        height: 20px;
+        padding-right: 10px;
+      }
+    }
+  }
+}
+
+.no-active-chat {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .message {
+    color: rgb(212, 208, 208);
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 24px;
+  }
+}

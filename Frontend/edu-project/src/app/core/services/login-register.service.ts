@@ -1,3 +1,4 @@
+import { UserDetails } from './../../features/types/user-details';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -10,18 +11,18 @@ import { RegisterObject } from '../types/register-object';
 })
 export class LoginRegisterService {
   private readonly baseURL = environment.url;
-  activeUser$: BehaviorSubject<string>;
+  activeUser$: BehaviorSubject<UserDetails>;
 
   constructor(private http: HttpClient) {
-    this.activeUser$ = new BehaviorSubject<string>(null);
+    this.activeUser$ = new BehaviorSubject<UserDetails>(null);
    }
 
-   getActiveUser(): Observable<string> {
+   getActiveUser(): Observable<UserDetails> {
      return this.activeUser$;
    }
 
-   setActiveUser(userId: string): void {
-     this.activeUser$.next(userId);
+   setActiveUser(userDetails: UserDetails): void {
+     this.activeUser$.next(userDetails);
    }
 
   loginUser(loginObj: LoginObject) {

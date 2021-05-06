@@ -1,0 +1,39 @@
+@import "src/styles/colors";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8%;
+  background-color: $yellow;
+
+  .buttons-container, .username {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-style {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 25px;
+      height: 25px;
+      padding-left: 20px;
+    }
+
+    .username {
+      color: white;
+      font-weight: bold;
+      padding-left: 10px;
+    }
+  }
+
+
+
+  button {
+    width: 110px;
+    color: white;
+    font-weight: bold;
+  }
+}

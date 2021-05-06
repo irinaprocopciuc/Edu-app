@@ -1,7 +1,7 @@
-import { ErrorHandlingService } from './../../core/services/error-handling.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { FacultyService } from 'src/app/core/services/faculty.service';
 import { LoginRegisterService } from 'src/app/core/services/login-register.service';
 

@@ -1,17 +1,4 @@
-@import "../../../styles/colors";
-
-.header {
-  display: flex;
-  justify-content: flex-end;
-  height: 8%;
-  background-color: $yellow;
-
-  button {
-    width: 110px;
-    color: white;
-    font-weight: bold;
-  }
-}
+@import "src/styles/colors";
 
 .page-content {
   height: 92%;
@@ -25,9 +12,10 @@
     box-shadow: 7px 7px 2px 1px rgba(188, 188, 238, 0.2);
 
     h2 {
-      color: #4a93ff;
+      color: $purple;
       font-size: 21px;
       padding-top: 10px;
+      padding-left: 10px;
     }
 
     .course-tile {
@@ -36,7 +24,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0px 10px;
+      padding: 5px 10px;
       margin-bottom: 10px;
       color: $dark-grey;
       font-weight: bold;

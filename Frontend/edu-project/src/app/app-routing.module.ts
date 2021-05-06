@@ -1,35 +1,48 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomepageComponent } from './features/homepage/homepage.component';
-import { LoginComponent } from './features/login/login.component';
-import { RegisterComponent } from './features/register/register.component';
+import { CoursesComponent } from './features/components/courses/courses.component';
+import { HomepageComponent } from './features/components/homepage/homepage.component';
+import { LiveChatComponent } from './features/components/live-chat/live-chat.component';
+import { LoginComponent } from './features/components/login/login.component';
+import { RegisterComponent } from './features/components/register/register.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: ':user_id',
-    component: HomepageComponent
+    component: HomepageComponent,
   },
   {
     path: ':user_id/homepage',
-    component: HomepageComponent
-  }
+    component: HomepageComponent,
+    children: [
+      { path: '', redirectTo: 'courses', pathMatch: 'full' },
+      {
+        path: 'courses',
+        component: CoursesComponent,
+      },
+      {
+        path: 'chat',
+        component: LiveChatComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

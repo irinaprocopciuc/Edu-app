@@ -13,12 +13,14 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { LiveChatComponent } from './components/live-chat/live-chat.component';
+import { CoursesComponent } from './components/courses/courses.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, HomepageComponent],
+  declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

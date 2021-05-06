@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CoursesService } from 'src/app/core/services/courses.service';
-import { FileUploadService } from 'src/app/core/services/file-upload.service';
-import { LoginRegisterService } from 'src/app/core/services/login-register.service';
-import { Course } from 'src/app/core/types/course';
-import { UploadFileModel } from 'src/app/core/types/upload-file-model';
+import { CoursesService } from 'src/app/shared/services/courses.service';
+import { Course } from 'src/app/shared/types/course';
+import { UploadFileModel } from 'src/app/shared/types/upload-file-model';
+import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss']
+  selector: 'app-courses',
+  templateUrl: './courses.component.html',
+  styleUrls: ['./courses.component.scss']
 })
-export class HomepageComponent implements OnInit {
+export class CoursesComponent implements OnInit {
   activeUser;
   coursesList: Course[];
   fileName = '';
@@ -19,7 +18,6 @@ export class HomepageComponent implements OnInit {
   selectedCourse: Course;
 
   constructor(
-    private readonly loginService: LoginRegisterService,
     private readonly router: Router,
     private readonly courseService: CoursesService,
     private readonly uploadService: FileUploadService
@@ -30,11 +28,6 @@ export class HomepageComponent implements OnInit {
     this.activeUser = url.split('/').filter(item => item !== '')[0];
     console.log(this.router.url, this.activeUser);
     this.getUserCourses(this.activeUser);
-  }
-
-  logout(): void {
-    this.loginService.setActiveUser(null);
-    this.router.navigate(['login']);
   }
 
   selectCourse(course: Course): void {
@@ -49,7 +42,7 @@ export class HomepageComponent implements OnInit {
       let uploadFileObject: UploadFileModel = {file: null, course: ''};
       this.fileName = file.name;
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', file, file.name);
       if (formData) {
         this.uploadService.uploadFile(formData, this.selectedCourse.name).subscribe(
           (res) => console.log(res),
@@ -66,4 +59,5 @@ export class HomepageComponent implements OnInit {
       this.coursesList = courses['response'];
     });
   }
+
 }
