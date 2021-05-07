@@ -1,4 +1,5 @@
 @import "src/styles/colors";
+@import "src/styles/mixins";
 
 .page-content {
   height: 92%;
@@ -6,17 +7,7 @@
   flex-direction: row;
 
   .left-side {
-    width: 20%;
-    margin: 10px;
-    background-color: white;
-    box-shadow: 7px 7px 2px 1px rgba(188, 188, 238, 0.2);
-
-    h2 {
-      color: $purple;
-      font-size: 21px;
-      padding-top: 10px;
-      padding-left: 10px;
-    }
+    @include left-menu;
 
     .course-tile {
       cursor: pointer;
@@ -29,6 +20,10 @@
       color: $dark-grey;
       font-weight: bold;
       font-size: 16px;
+
+      &.selected {
+        background-color: rgb(250, 241, 231);
+      }
 
       &:hover {
         background-color: rgb(250, 241, 231);
@@ -44,13 +39,100 @@
         background-color: $peach;
         color: white;
       }
-
     }
   }
 
   .right-side {
-    .file-input {
-      display: none;
+    width: 80%;
+
+    .no-course-selected {
+      @include no-results-container;
+
+      h2 {
+        @include no-results-message;
+      }
+    }
+
+    .course-selected {
+      height: 100%;
+      overflow-y: scroll;
+      .course-details {
+
+        .course-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          height: 50px;
+          background-color: white;
+          padding: 0 20px;
+          box-shadow: 7px 7px 2px 1px rgba(238, 237, 188, 0.2);
+
+          p {
+            font-size: 17px;
+            font-weight: 500;
+          }
+
+          .teacher {
+            background-color: $purple;
+            color: white;
+            padding: 10px;
+          }
+
+          .course {
+            background-color: $pink;
+            color: white;
+            padding: 10px;
+          }
+        }
+      }
+
+      .files {
+        font-size: 17px;
+        color: $dark-grey;
+        padding: 20px;
+
+        p {
+          cursor: pointer;
+        }
+      }
+
+      .upload-files {
+        padding-top: 20px;
+        form {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          padding-left: 20px;
+
+          label {
+            background-color: $yellow;
+            color: white;
+            padding: 5px;
+            font-family: sans-serif;
+            border-radius: 0.3rem;
+            cursor: pointer;
+          }
+
+          span {
+            padding: 0 10px;
+          }
+
+          button {
+            height: 32px;
+            background-color: white;
+            border: 1px solid red;
+            display: flex;
+            align-items: center;
+          }
+
+          #file-chosen {
+            margin-left: 0.3rem;
+            font-family: sans-serif;
+          }
+        }
+      }
     }
   }
 }

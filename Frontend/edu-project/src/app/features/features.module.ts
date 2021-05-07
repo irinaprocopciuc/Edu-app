@@ -18,9 +18,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { LiveChatComponent } from './components/live-chat/live-chat.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { FileDetailsComponent } from './components/file-details/file-details.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent],
+  declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent, FileDetailsComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -33,7 +35,8 @@ import { CoursesComponent } from './components/courses/courses.component';
     MatDatepickerModule,
     MatSelectModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    PdfViewerModule
   ]
 })
 export class FeaturesModule { }

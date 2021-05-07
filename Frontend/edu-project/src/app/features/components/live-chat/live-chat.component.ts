@@ -10,10 +10,12 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class LiveChatComponent implements OnInit {
   users: UserDetails[];
   isUserSelected = false;
+  activeUsername: string;
 
   constructor(private readonly userService: UserService) { }
 
   ngOnInit(): void {
+    this.activeUsername = localStorage.getItem('username');
     this.getUsersList();
   }
 
@@ -24,7 +26,7 @@ export class LiveChatComponent implements OnInit {
   private getUsersList(): void {
     this.userService.getUsers().subscribe(usersList => {
       console.log(usersList);
-      this.users = usersList['response'];
+      this.users = usersList['response'].filter(res => res.name !== this.activeUsername);
     })
   }
 }

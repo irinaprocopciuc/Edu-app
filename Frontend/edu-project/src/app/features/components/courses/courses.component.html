@@ -2,9 +2,10 @@
   <div class="left-side">
     <h2>Available Courses</h2>
     <div
-      class="course-tile"
       *ngFor="let course of coursesList"
+      [ngClass]="{ selected: course?.name === selectedCourse?.name }"
       (click)="selectCourse(course)"
+      class="course-tile"
     >
       {{ course.name }}
       <div class="credits" matTooltip="Number of credits">
@@ -12,26 +13,43 @@
       </div>
     </div>
   </div>
-  <div class="right-side" *ngIf="courseSelected">
-    <form >
-      <input
-        type="file"
-        class="file-input"
-        (change)="onFileSelected($event)"
-        #fileUpload
-      />
-      <div class="file-upload">
-        {{ fileName || "No file uploaded yet." }}
 
-        <button
-          mat-mini-fab
-          color="primary"
-          class="upload-btn"
-          (click)="fileUpload.click()"
-        >
-          <mat-icon>attach_file</mat-icon>
-        </button>
+  <div class="right-side">
+    <div *ngIf="!courseSelected" class="no-course-selected">
+      <img src="../../../../assets/select-course.png" alt="" />
+      <h2>Please select a course</h2>
+    </div>
+
+    <div *ngIf="courseSelected" class="course-selected">
+      <div class="course-details">
+        <div class="course-header">
+          <p class="course">
+            {{ selectedCourse.name }} ({{ selectedCourse.credits }} credits)
+          </p>
+          <p class="teacher">{{ selectedCourse.teachername }}</p>
+        </div>
       </div>
-    </form>
+      <div class="upload-files">
+        <div class="files">Upload project</div>
+        <form (ngSubmit)="onSubmit()">
+          <label for="actual-btn">Choose file</label>
+          <input
+            #selectedDoc
+            (change)="changeSelectedFile($event)"
+            id="actual-btn"
+            type="file"
+            hidden
+          />
+          <span id="file-chosen" *ngIf="noFileSelected">No file chosen</span>
+          <div *ngIf="!noFileSelected">{{ fileName }}</div>
+          <button mat-button color="accent" type="submit">Upload file</button>
+        </form>
+      </div>
+      <div class="files" >
+        Resources
+        <p [routerLink]="['file-details']">text.txt</p>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

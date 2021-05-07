@@ -1,3 +1,4 @@
+import { FileDetailsComponent } from './features/components/file-details/file-details.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CoursesComponent } from './features/components/courses/courses.component';
@@ -32,11 +33,18 @@ const routes: Routes = [
       {
         path: 'courses',
         component: CoursesComponent,
+        children: [
+          { path: '', redirectTo: 'courses', pathMatch: 'full' },
+          {
+            path: 'file-details',
+            component: FileDetailsComponent,
+          },
+        ]
       },
       {
         path: 'chat',
         component: LiveChatComponent,
-      },
+      }
     ],
   },
 ];

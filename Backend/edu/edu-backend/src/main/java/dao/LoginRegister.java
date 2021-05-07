@@ -34,7 +34,7 @@ public class LoginRegister implements LoginRegisterInterface {
 		List<Map<String, String>> userDetails = new ArrayList<>();
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select iduser, name from user where username ='" + credentials.getUsername()
+			ResultSet rs = stmt.executeQuery("select iduser, username from user where username ='" + credentials.getUsername()
 					+ "' and pass='" + credentials.getPassword() + "';");
 			while (rs.next()) {
 				Map<String, String> response = new HashMap<>();

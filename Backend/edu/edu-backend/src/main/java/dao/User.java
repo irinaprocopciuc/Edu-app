@@ -35,13 +35,13 @@ public class User implements UserInterface{
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt
 					.executeQuery("select idUser, username from user;");
-			rs.next();
 			while (rs.next()) {
-				Map<String, String> courses = new HashMap<>();
-				courses.put("iduser", rs.getString(1));
-				courses.put("name", rs.getString(2));
-				usersList.add(courses);
+				Map<String, String> user = new HashMap<>();
+				user.put("iduser", rs.getString(1));
+				user.put("name", rs.getString(2));
+				usersList.add(user);
 			}
+			System.out.println(usersList);
 			return usersList;
 		} catch (SQLException e) {
 			e.printStackTrace();

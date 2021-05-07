@@ -38,14 +38,15 @@ public class Courses implements CoursesInterface {
 			specId = rs.getString(1);
 			yearSemId = rs.getString(2);
 
-			ResultSet res = stmt.executeQuery("select idclass,name, numberofcredits from class where idSpec ='" + specId
-					+ "' and idYearSem ='" + yearSemId + "';");
+			ResultSet res = stmt.executeQuery("select c.idclass,c.name, c.numberofcredits, t.name from edu.class c inner join edu.teacher t on c.idTeacherC = t.idTeacher where c.idSpec ='" + specId
+					+ "' and c.idYearSem ='" + yearSemId + "';");
 
 			while (res.next()) {
 				Map<String, String> courses = new HashMap<>();
-				courses.put("isclass", res.getString(1));
+				courses.put("idclass", res.getString(1));
 				courses.put("name", res.getString(2));
 				courses.put("credits", res.getString(3));
+				courses.put("teachername", res.getString(4));
 				coursesList.add(courses);
 			}
 			return coursesList;
