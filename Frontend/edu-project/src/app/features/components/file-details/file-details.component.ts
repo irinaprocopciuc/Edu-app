@@ -1,3 +1,4 @@
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,11 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./file-details.component.scss']
 })
 export class FileDetailsComponent implements OnInit {
-  src = "C:/AAA-IRINA/Disertatie/app/Backend/edu/edu-backend/courseFiles/Business Intelligence/D2 - Sprint approach and Testing processes.docx";
+   src = "../../../../assets/test.pdf";
 
-  constructor() { }
+   commentsForm: FormGroup;
+
+  constructor(private readonly formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.commentsForm = this.formBuilder.group({
+      comment: [null]
+    });
   }
 
+  addComment(): void {
+    console.log(this.commentsForm.getRawValue());
+  }
 }

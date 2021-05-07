@@ -12,10 +12,10 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  @ViewChild('selectedDoc') selectedDoc: ElementRef;
+
   activeUser;
   coursesList: Course[];
-  fileName = '';
+
   courseSelected = false;
   selectedCourse: Course;
   noFileSelected = true;
@@ -23,8 +23,7 @@ export class CoursesComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly courseService: CoursesService,
-    private readonly uploadService: FileUploadService,
-    private errorService: ErrorHandlingService
+
   ) {}
 
   ngOnInit(): void {
@@ -36,27 +35,10 @@ export class CoursesComponent implements OnInit {
   selectCourse(course: Course): void {
     this.courseSelected = true;
     this.selectedCourse = course;
+    localStorage.setItem('selectedCourseName', this.selectedCourse.name);
   }
 
-  changeSelectedFile(event): void {
-    this.noFileSelected = false;
-    this.fileName = event.target.files[0].name;
-  }
 
-  onSubmit() {
-    const file: File = this.selectedDoc.nativeElement.files[0];
-    if (file) {
-      this.uploadService.uploadFile(file, this.selectedCourse.name).subscribe(
-        (res) => {
-          this.errorService.displaySuccessToast(res['message'], '');
-        },
-        (err) => {
-          this.errorService.displayErrorToast(err.error.message, '');
-        }
-      );
-      this.noFileSelected = true;
-    }
-  }
 
   private getUserCourses(user: string): void {
     this.courseService.getCourses(user).subscribe((courses) => {

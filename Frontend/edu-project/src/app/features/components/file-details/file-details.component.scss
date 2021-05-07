@@ -1,3 +1,34 @@
+@import 'src/styles/colors';
+
 .file-details-container {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .pdf-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .pdf-preview {
+    width: 70%;
+  }
+
+  .comments {
+    width: 30%;
+    padding-left: 20px;
+
+    h2 {
+      color: $dark-grey;
+    }
+
+    button {
+      margin-left: 20px;
+      background-color: $light-blue;
+
+      &:hover {
+        background-color: $darker-blue;
+      }
+    }
+  }
 }

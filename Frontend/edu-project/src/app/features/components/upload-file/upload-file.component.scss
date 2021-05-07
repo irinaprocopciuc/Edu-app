@@ -1,0 +1,67 @@
+@import "src/styles/colors";
+
+.upload-files {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .page-title {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    color: $dark-grey;
+    font-size: 18px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+    width: 200px;
+
+    label {
+      background-color: $light-blue;
+      color: white;
+      padding: 5px;
+      font-family: sans-serif;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+
+      &:hover {
+        background-color: $darker-blue;
+      }
+    }
+
+    span {
+      padding: 15px;
+      width: 100%;
+    }
+
+    button {
+      height: 32px;
+      background-color: white;
+      border: 1px solid red;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      ::ng-deep {
+        span {
+          margin-left: 30%;
+        }
+      }
+    }
+
+    #file-chosen {
+      margin-left: 0.3rem;
+      font-family: sans-serif;
+    }
+
+    .file-name {
+      padding: 15px;
+    }
+  }
+}

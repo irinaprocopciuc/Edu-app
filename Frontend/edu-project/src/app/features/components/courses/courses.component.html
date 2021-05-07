@@ -29,26 +29,26 @@
           <p class="teacher">{{ selectedCourse.teachername }}</p>
         </div>
       </div>
-      <div class="upload-files">
-        <div class="files">Upload project</div>
-        <form (ngSubmit)="onSubmit()">
-          <label for="actual-btn">Choose file</label>
-          <input
-            #selectedDoc
-            (change)="changeSelectedFile($event)"
-            id="actual-btn"
-            type="file"
-            hidden
-          />
-          <span id="file-chosen" *ngIf="noFileSelected">No file chosen</span>
-          <div *ngIf="!noFileSelected">{{ fileName }}</div>
-          <button mat-button color="accent" type="submit">Upload file</button>
-        </form>
+
+      <div class="files-section">
+        <div class="resources">
+          <div class="title">Resources</div>
+          <div class="resource">
+            <p [routerLink]="['file-details']">text.txt</p>
+            <img src="../../../../assets/preview.png" alt="" />
+          </div>
+          <div class="resource">
+            <p [routerLink]="['file-details']">text.txt</p>
+            <img src="../../../../assets/preview.png" alt="" />
+          </div>
+          <div class="resource">
+            <p [routerLink]="['file-details']">text.txt</p>
+            <img src="../../../../assets/preview.png" alt="" />
+          </div>
+        </div>
+        <button mat-button color="primary" [routerLink]="['upload']">Upload project</button>
       </div>
-      <div class="files" >
-        Resources
-        <p [routerLink]="['file-details']">text.txt</p>
-      </div>
+      <div class="rainbow-border"></div>
       <router-outlet></router-outlet>
     </div>
   </div>

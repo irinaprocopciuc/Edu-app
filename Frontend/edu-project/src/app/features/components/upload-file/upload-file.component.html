@@ -1,0 +1,16 @@
+<div class="upload-files">
+  <div class="page-title">Upload your assignment</div>
+  <form (ngSubmit)="onSubmit()">
+    <label for="actual-btn">Choose file</label>
+    <input
+      #selectedDoc
+      (change)="changeSelectedFile($event)"
+      id="actual-btn"
+      type="file"
+      hidden
+    />
+    <span id="file-chosen" *ngIf="noFileSelected">No file chosen</span>
+    <div class="file-name" *ngIf="!noFileSelected">{{ fileName }}</div>
+    <button mat-button color="accent" type="submit">Upload file</button>
+  </form>
+</div>

@@ -6,6 +6,7 @@ import { HomepageComponent } from './features/components/homepage/homepage.compo
 import { LiveChatComponent } from './features/components/live-chat/live-chat.component';
 import { LoginComponent } from './features/components/login/login.component';
 import { RegisterComponent } from './features/components/register/register.component';
+import { UploadFileComponent } from './features/components/upload-file/upload-file.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,10 @@ const routes: Routes = [
             path: 'file-details',
             component: FileDetailsComponent,
           },
+          {
+            path: 'upload',
+            component: UploadFileComponent
+          }
         ]
       },
       {

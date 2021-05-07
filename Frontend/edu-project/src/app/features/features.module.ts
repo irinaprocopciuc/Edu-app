@@ -20,9 +20,11 @@ import { LiveChatComponent } from './components/live-chat/live-chat.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { FileDetailsComponent } from './components/file-details/file-details.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { UploadFileComponent } from './components/upload-file/upload-file.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent, FileDetailsComponent],
+  declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent, FileDetailsComponent, UploadFileComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -36,6 +38,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MatSelectModule,
     MatTooltipModule,
     MatIconModule,
+    MatInputModule,
+    TextFieldModule,
     PdfViewerModule
   ]
 })

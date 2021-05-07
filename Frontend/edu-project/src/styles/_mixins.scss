@@ -41,3 +41,20 @@
     padding-left: 10px;
   }
 }
+
+@mixin rainbow-bordre-style {
+  height: 4px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    to right,
+    #c4e17f 50px,
+    #f7fdca 50px,
+    #fad071 50px,
+    #f0766b,
+    #db9dbe,
+    #c49cdf,
+    #6599e2,
+    #61c2e4
+  );
+  box-shadow: 7px 7px 2px 1px rgba(180, 184, 184, 0.2);
+}
