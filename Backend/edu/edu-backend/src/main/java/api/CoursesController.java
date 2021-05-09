@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import service.CoursesService;
 
-@RequestMapping("")
+@RequestMapping("/courses")
 @RestController
 public class CoursesController {
 
@@ -28,8 +28,8 @@ public class CoursesController {
 		this.coursesService = coursesService;
 	}
 	
-	@GetMapping(path = "/courses/userId={userId}")
-	public ResponseEntity<String> getTrips(@PathVariable("userId") String userId) throws JsonProcessingException {
+	@GetMapping(path = "/userId={userId}")
+	public ResponseEntity<String> getCourses(@PathVariable("userId") String userId) throws JsonProcessingException {
 		Map<String, Object> map = new HashMap<>();
 		List<Map<String, String>> coursesList = coursesService.getCourses(userId);
 		if (!coursesList.isEmpty()) {
@@ -48,4 +48,26 @@ public class CoursesController {
 					HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@GetMapping(path = "/getCourseFiles/courseName={courseName}")
+	public ResponseEntity<String> getCourseFiles(@PathVariable("courseName") String courseName) throws JsonProcessingException {
+		Map<String, Object> map = new HashMap<>();
+		List<String> filesList = coursesService.getCourseFiles(courseName);
+		if (!filesList.isEmpty()) {
+			map.put("status", HttpStatus.OK);
+			map.put("code", "200");
+			map.put("message", "Files list retrieved!");
+			map.put("response", filesList);
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.OK);
+		} else {
+			map.put("status", HttpStatus.NOT_FOUND);
+			map.put("code", "404");
+			map.put("message", "Course couldn't be found!");
+			map.put("response", "");
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.NOT_FOUND);
+		}
+	}
+	
 }

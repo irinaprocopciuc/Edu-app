@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -54,5 +55,21 @@ public class Courses implements CoursesInterface {
 			e.printStackTrace();
 		}
 		return coursesList;
+	}
+
+	@Override
+	public List<String> getCourseFiles(String courseName) {
+
+		List<String> response = new ArrayList<String>();
+		
+		if(new File(System.getProperty("user.dir")+"\\courseFiles\\",courseName).exists()) {
+			File dir = new File(System.getProperty("user.dir")+"\\courseFiles\\"+courseName+"\\");
+			
+			for (File file : dir.listFiles()) {
+                response.add(file.getName());
+	        }
+		}
+		
+		return response;
 	}
 }

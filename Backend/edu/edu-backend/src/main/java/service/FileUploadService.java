@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,10 @@ public class FileUploadService {
 	
 	public boolean storeFile(MultipartFile fileDetails,String courseName) {
 		return db.storeFile(fileDetails,courseName);
+	}
+	
+	public boolean sendFile(String fileName,String courseName) {
+		return db.sendFile(fileName,courseName);
 	}
 	
 }

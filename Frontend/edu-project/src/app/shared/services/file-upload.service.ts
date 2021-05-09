@@ -24,4 +24,8 @@ export class FileUploadService {
       }),
     });
   }
+
+  getFiles(courseName: string) {
+    return this.http.get(`${this.baseURL}/getFiles?courseName=${courseName}`);
+  }
 }

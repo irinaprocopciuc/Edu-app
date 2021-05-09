@@ -23,6 +23,7 @@ export class CoursesComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly courseService: CoursesService,
+    private readonly fileService: FileUploadService
 
   ) {}
 
@@ -36,6 +37,9 @@ export class CoursesComponent implements OnInit {
     this.courseSelected = true;
     this.selectedCourse = course;
     localStorage.setItem('selectedCourseName', this.selectedCourse.name);
+    // this.fileService.getFiles(course.name).subscribe(files => {
+    //   console.log(files);
+    // })
   }
 
 
