@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import dao.CoursesInterface;
+import dao.Inteface.CoursesInterface;
 
 @Service
 public class CoursesService {

@@ -1,23 +1,15 @@
 package dao;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.nio.file.FileSystem;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
-import java.nio.file.WatchEvent.Kind;
-import java.nio.file.WatchEvent.Modifier;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
+import dao.Inteface.UploadFileInterface;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,21 +41,29 @@ public class UploadFile implements UploadFileInterface {
 	}
 
 	@Override
-	public boolean sendFile(String fileName, String courseName) {
-		
-		
-		if(new File(System.getProperty("user.dir")+"\\courseFiles\\",courseName).exists()) {
-			File dir = new File(System.getProperty("user.dir")+"\\courseFiles\\"+courseName+"\\");
-			
-			for (File file : dir.listFiles()) {
-                if(file.getName().equals(fileName)) {
-                	return true;
-                }
-	        }
-		}else {
-			return false;
+	public boolean deleteFile(String fileName, String courseName) {
+		File fileToDelete = new File(System.getProperty("user.dir")+"\\courseFiles\\"+courseName+"\\"+fileName);
+		if(fileToDelete.exists()){
+			fileToDelete.delete();
+			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Resource sendFile(String fileName, String courseName) {
+
+		if(new File(System.getProperty("user.dir")+"\\courseFiles\\"+courseName+"\\"+fileName).exists()){
+			Path filePath = Paths.get(System.getProperty("user.dir")+"\\courseFiles\\"+courseName+"\\"+fileName);
+			try {
+				Resource fileToReturn = new UrlResource(filePath.toUri());
+				return fileToReturn;
+
+			} catch (MalformedURLException e) {
+				return null;
+			}
+		}
+		return null;
 	}
 
 }

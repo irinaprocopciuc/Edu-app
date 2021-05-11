@@ -10,10 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dao.Inteface.FacultyInterface;
 import org.springframework.stereotype.Repository;
 
 @Repository("Faculty")
-public class Faculty implements FacultyInterface{
+public class Faculty implements FacultyInterface {
 
 	private static Connection conn;
 	

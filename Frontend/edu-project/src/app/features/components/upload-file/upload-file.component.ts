@@ -26,7 +26,7 @@ export class UploadFileComponent implements OnInit {
   onSubmit() {
     const file: File = this.selectedDoc.nativeElement.files[0];
     if (file) {
-      this.uploadService.uploadFile(file, this.selectedCourse).subscribe(
+      this.uploadService.uploadFile(file, this.selectedCourse.replace(/\s/g,'')).subscribe(
         (res) => {
           this.errorService.displaySuccessToast(res['message'], '');
         },

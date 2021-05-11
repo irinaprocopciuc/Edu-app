@@ -15,4 +15,8 @@ export class CoursesService {
   getCourses(userId: string): Observable<Course> {
     return this.http.get<Course>(`${this.baseURL}/courses/userId=${userId}`);
   }
+
+  getCouseFiles(courseName: string): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}/courses/getCourseFiles/courseName=${courseName}`);
+  }
 }

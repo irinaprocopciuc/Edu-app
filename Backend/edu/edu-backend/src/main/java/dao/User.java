@@ -10,11 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dao.Inteface.UserInterface;
 import org.springframework.stereotype.Repository;
 
 
 @Repository("Users")
-public class User implements UserInterface{
+public class User implements UserInterface {
 	private static Connection conn;
 	
 	

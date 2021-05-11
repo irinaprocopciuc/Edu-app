@@ -33,16 +33,8 @@
       <div class="files-section">
         <div class="resources">
           <div class="title">Resources</div>
-          <div class="resource">
-            <p [routerLink]="['file-details']">text.txt</p>
-            <img src="../../../../assets/preview.png" alt="" />
-          </div>
-          <div class="resource">
-            <p [routerLink]="['file-details']">text.txt</p>
-            <img src="../../../../assets/preview.png" alt="" />
-          </div>
-          <div class="resource">
-            <p [routerLink]="['file-details']">text.txt</p>
+          <div class="resource" *ngFor="let res of resourcesList">
+            <p [routerLink]="['file-details']">{{res}}</p>
             <img src="../../../../assets/preview.png" alt="" />
           </div>
         </div>

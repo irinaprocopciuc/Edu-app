@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FileDetailsComponent implements OnInit {
    src = "../../../../assets/test.pdf";
+   //src = "file:///C:/Users/iprocopc/Downloads/MEGAtrends_Biblio.pdf";
 
    commentsForm: FormGroup;
 

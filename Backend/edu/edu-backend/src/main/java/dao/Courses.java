@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dao.Inteface.CoursesInterface;
 import org.springframework.stereotype.Repository;
 
 @Repository("Courses")

@@ -12,19 +12,18 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-
   activeUser;
   coursesList: Course[];
 
   courseSelected = false;
   selectedCourse: Course;
   noFileSelected = true;
+  resourcesList: string[] = [];
 
   constructor(
     private readonly router: Router,
     private readonly courseService: CoursesService,
     private readonly fileService: FileUploadService
-
   ) {}
 
   ngOnInit(): void {
@@ -37,12 +36,18 @@ export class CoursesComponent implements OnInit {
     this.courseSelected = true;
     this.selectedCourse = course;
     localStorage.setItem('selectedCourseName', this.selectedCourse.name);
+    this.getCourseFiles(course.name.replace(/\s/g, ''));
     // this.fileService.getFiles(course.name).subscribe(files => {
     //   console.log(files);
     // })
   }
 
-
+  private getCourseFiles(coursename: string): void {
+    this.courseService.getCouseFiles(coursename).subscribe((filesList) => {
+      console.log(filesList);
+      this.resourcesList = filesList['response'];
+    });
+  }
 
   private getUserCourses(user: string): void {
     this.courseService.getCourses(user).subscribe((courses) => {
