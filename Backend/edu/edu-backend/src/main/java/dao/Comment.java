@@ -2,6 +2,7 @@ package dao;
 
 import dao.Inteface.CommentInterface;
 import model.CommentDetails;
+import model.EditComment;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -67,6 +68,94 @@ public class Comment implements CommentInterface {
             throwables.printStackTrace();
         }
         return -1;//this is for throwing error
+    }
+
+    @Override
+    public int deleteComment(int commentId) {
+        try {
+            String query = "delete from comment where commentId = ?;";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1,commentId);
+
+            if(stmt.executeUpdate()>0){
+                return 0;
+            }
+
+            return -1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -2;
+    }
+
+    @Override
+    public int editComment(EditComment editComment) {
+        try {
+            String query = "update comment set message = ?, date = ? where commentId = ?;";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,editComment.getMessage());
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            df.setTimeZone(TimeZone.getTimeZone("GTM"));
+            stmt.setString(2,df.format(editComment.getDate()));
+
+            stmt.setString(3,editComment.getCommentId());
+            if(stmt.executeUpdate()>0){
+                return 0;
+            }
+
+            return -1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -2;
+    }
+
+    @Override
+    public int checkUserRights(EditComment editComment) {
+        try {
+
+            String query = "select userId from comment where commentId= ?;";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,editComment.getCommentId());
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                if(editComment.getUserID().equals(rs.getString(1))){
+                    return 0;
+                }
+                return -1;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public int checkCommentRights(CommentDetails commentDetails) {
+        try {
+
+            String query = "select commentId from comment where fileName= ? and courseName = ? and userId = ?  and date = ?;";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,commentDetails.getFileName());
+            stmt.setString(2,commentDetails.getCourseName());
+            stmt.setString(3,commentDetails.getUserId());
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            df.setTimeZone(TimeZone.getTimeZone("GTM"));
+            stmt.setString(4,df.format(commentDetails.getDate()));
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
     }
 
     @Override

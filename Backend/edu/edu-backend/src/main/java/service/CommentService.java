@@ -1,7 +1,9 @@
 package service;
 
+import dao.Comment;
 import dao.Inteface.CommentInterface;
 import model.CommentDetails;
+import model.EditComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,28 @@ public class CommentService {
 
     public List<Map<String,String>> getComments(String fileName, String courseName){
         return conn.getComments(fileName,courseName);
+    }
+
+    public int deleteComment(CommentDetails commentDetails){
+
+        int commentId= conn.checkCommentRights(commentDetails);
+
+        if(commentId!=-1){
+            return conn.deleteComment(commentId);
+        }
+        return -3;
+
+    }
+
+    public int editComment(EditComment editComment){
+
+        int rights = conn.checkUserRights(editComment);
+
+        if(rights==0){
+            return conn.editComment(editComment);
+        }
+        return -3;
+
     }
 
 }
