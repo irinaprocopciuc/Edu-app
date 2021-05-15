@@ -22,6 +22,7 @@ import { FileDetailsComponent } from './components/file-details/file-details.com
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent, FileDetailsComponent, UploadFileComponent],
@@ -40,7 +41,8 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
     MatIconModule,
     MatInputModule,
     TextFieldModule,
-    PdfViewerModule
+    PdfViewerModule,
+    MatProgressSpinnerModule
   ]
 })
 export class FeaturesModule { }

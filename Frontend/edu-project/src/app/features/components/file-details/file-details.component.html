@@ -1,5 +1,5 @@
 <div class="file-details-container">
-  File preview
+  <p>File Preview</p>
 
   <div class="pdf-container">
     <pdf-viewer
@@ -22,6 +22,22 @@
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Add</button>
       </form>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="comments-list" *ngIf="!isLoading">
+        <div class="comment" *ngFor="let comment of commentsList">
+          <div class="title">
+            <div class="username">{{ comment.username | uppercase }}</div>
+            <div class="date">said on {{ comment.date | date: 'dd-MM-yyy' }} :</div>
+          </div>
+          <div class="content">
+            {{ comment.message }}
+          </div>
+          <div class="buttons" *ngIf="comment.userId === currentUserId">
+           <img src="../../../../assets/edit.png" (click)="editComment(comment)" />
+            <img src="../../../../assets/trash.png" (click)="deleteComment(comment)" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -55,10 +55,7 @@ public class CommentService {
         return conn.getComments(fileName,courseName);
     }
 
-    public int deleteComment(CommentDetails commentDetails){
-
-        int commentId= conn.checkCommentRights(commentDetails);
-
+    public int deleteComment(int commentId){
         if(commentId!=-1){
             return conn.deleteComment(commentId);
         }

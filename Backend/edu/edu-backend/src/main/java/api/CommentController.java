@@ -74,10 +74,10 @@ public class CommentController {
     }
 
     @DeleteMapping(path = "/deleteComment")
-    public ResponseEntity<String> deleteComment(@Valid @RequestBody CommentDetails commentDetails) throws JsonProcessingException {
+    public ResponseEntity<String> deleteComment(@Valid @RequestParam int commentId) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
 
-        int result = commentService.deleteComment(commentDetails);
+        int result = commentService.deleteComment(commentId);
         if (result==0) {
             map.put("status", HttpStatus.OK);
             map.put("code", "200");

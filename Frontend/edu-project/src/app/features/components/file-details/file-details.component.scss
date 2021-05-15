@@ -1,6 +1,9 @@
-@import 'src/styles/colors';
+@import "src/styles/colors";
+@import "src/styles/mixins";
 
 .file-details-container {
+  @include title-fancy-style;
+
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -22,12 +25,59 @@
       color: $dark-grey;
     }
 
+    form {
+      padding-bottom: 20px;
+    }
+
     button {
       margin-left: 20px;
       background-color: $light-blue;
 
       &:hover {
         background-color: $darker-blue;
+      }
+    }
+  }
+}
+
+.comments-list {
+  .comment {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: 20px;
+    }
+
+    .title {
+      display: flex;
+      border-bottom: 1px solid $pink;
+      padding-bottom: 5px;
+    }
+
+    .username {
+      font-weight: bold;
+      padding-right: 10px;
+
+      color: $yellow;
+    }
+
+    .date {
+      color: $light-grey;
+    }
+
+    .content {
+      padding-top: 10px;
+    }
+
+    .buttons {
+      padding-top: 15px;
+      img {
+        cursor: pointer;
       }
     }
   }

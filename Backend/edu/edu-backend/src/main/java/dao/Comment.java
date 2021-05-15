@@ -163,7 +163,7 @@ public class Comment implements CommentInterface {
         try {
             if(new File(System.getProperty("user.dir")+"\\courseFiles\\"+courseName+"\\"+fileName).exists()){
                 List<Map<String,String>> comments = new ArrayList<Map<String,String>>();
-                String query = "select commentId,userId,message,date from comment where fileName=? and courseName = ?;";
+                String query = "select c.commentId,c.userId,c.message,c.date,u.username from comment c join user u on c.userId = u.idUser where fileName=? and courseName = ?;";
                 PreparedStatement stmt = conn.prepareStatement(query);
                 stmt.setString(1,fileName);
                 stmt.setString(2,courseName);
@@ -176,6 +176,7 @@ public class Comment implements CommentInterface {
                     comment.put("userId",rs.getString(2));
                     comment.put("message",rs.getString(3));
                     comment.put("date",rs.getString(4));
+                    comment.put("username",rs.getString(5));
                     comments.add(comment);
                 }
 

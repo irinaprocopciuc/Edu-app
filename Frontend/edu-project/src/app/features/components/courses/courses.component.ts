@@ -19,6 +19,10 @@ export class CoursesComponent implements OnInit {
   selectedCourse: Course;
   noFileSelected = true;
   resourcesList: string[] = [];
+  userId: string;
+  isFileSelected = false;
+  fileSelectedName: string;
+  isUploadBtnClicked = false;
 
   constructor(
     private readonly router: Router,
@@ -30,16 +34,32 @@ export class CoursesComponent implements OnInit {
     let url = this.router.url;
     this.activeUser = url.split('/').filter((item) => item !== '')[0];
     this.getUserCourses(this.activeUser);
+    this.userId = localStorage.getItem('userId');
   }
 
   selectCourse(course: Course): void {
     this.courseSelected = true;
     this.selectedCourse = course;
+    this.isFileSelected = false;
     localStorage.setItem('selectedCourseName', this.selectedCourse.name);
+    this.router.navigate([`${this.userId}/homepage/courses`]);
     this.getCourseFiles(course.name.replace(/\s/g, ''));
-    // this.fileService.getFiles(course.name).subscribe(files => {
-    //   console.log(files);
-    // })
+  }
+
+  seeFileDetails(file: string): void {
+    this.router.navigate([`${this.userId}/homepage/courses`]);
+    this.router.navigate([`${this.userId}/homepage/courses/file-details`]);
+    this.fileService.setFileName(file);
+    this.isFileSelected = true;
+    this.fileSelectedName = file;
+    this.isUploadBtnClicked = false;
+    console.log(file);
+  }
+
+  goToUploadFilePage(): void {
+    this.isUploadBtnClicked = true;
+    this.isFileSelected = false;
+    this.router.navigate([`${this.userId}/homepage/courses/upload`]);
   }
 
   private getCourseFiles(coursename: string): void {

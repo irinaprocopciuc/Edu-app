@@ -20,7 +20,7 @@ export class UploadFileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.selectedCourse = localStorage.getItem('selectedCourseName')
+    this.selectedCourse = localStorage.getItem('selectedCourseName');
   }
 
   onSubmit() {

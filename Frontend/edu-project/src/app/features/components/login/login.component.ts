@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
         let userDetails = resp.userDetails[0];
         this.errorService.displaySuccessToast(resp.message, '');
         localStorage.setItem('username', userDetails.name);
+        localStorage.setItem('userId', userDetails.iduser);
         this.loginService.setActiveUser(userDetails);
         this.router.navigate([`${userDetails.iduser}/homepage`]);
       },
