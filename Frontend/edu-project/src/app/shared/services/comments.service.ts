@@ -2,6 +2,7 @@ import { CommentDetails } from './../types/comment-details';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { EditComment } from '../types/edit-comment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class CommentsService {
         commentId: commentId
       }
     });
+  }
+
+  editComment(editedComment: EditComment) {
+    return this.http.patch(`${this.baseUrl}/comment/editComment`, {...editedComment});
   }
 }

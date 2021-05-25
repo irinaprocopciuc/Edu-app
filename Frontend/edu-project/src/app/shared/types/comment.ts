@@ -4,4 +4,5 @@ export interface Comment {
   message: string;
   userId: string;
   username: string;
+  isEditMode?: boolean;
 }

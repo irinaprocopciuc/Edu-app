@@ -30,7 +30,8 @@
             <div class="date">said on {{ comment.date | date: 'dd-MM-yyy' }} :</div>
           </div>
           <div class="content">
-            {{ comment.message }}
+            <div *ngIf="!comment.isEditMode" class="not-editable">{{ comment.message }}</div>
+            <input mat-input *ngIf="comment.isEditMode" (focusout)="onFocusOut(comment)" [(ngModel)]="comment.message" type="text">
           </div>
           <div class="buttons" *ngIf="comment.userId === currentUserId">
            <img src="../../../../assets/edit.png" (click)="editComment(comment)" />

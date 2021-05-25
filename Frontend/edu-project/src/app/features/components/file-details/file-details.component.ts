@@ -5,6 +5,7 @@ import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { EditComment } from 'src/app/shared/types/edit-comment';
 
 @Component({
   selector: 'app-file-details',
@@ -21,7 +22,6 @@ export class FileDetailsComponent implements OnInit, OnChanges {
   courseName: string;
   commentsList: Comment[];
   currentUserId: string;
-
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly fileService: FileUploadService,
@@ -42,7 +42,27 @@ export class FileDetailsComponent implements OnInit, OnChanges {
   }
 
   editComment(comment: Comment): void {
+    comment.isEditMode = true;
+  }
+
+  onFocusOut(comment: Comment): void {
+    comment.isEditMode = false;
     console.log(comment);
+    let editedComment: EditComment = {
+      commentId: '',
+      userID: '',
+      message: '',
+      date: ''
+    }
+    editedComment.commentId = comment.commentId;
+    editedComment.userID = this.currentUserId;
+    editedComment.message = comment.message;
+    editedComment.date = new Date().toISOString();
+
+    this.commentsService.editComment(editedComment).subscribe(response => {
+      console.log(response);
+    })
+
   }
 
   deleteComment(comment: Comment): void {
@@ -69,7 +89,6 @@ export class FileDetailsComponent implements OnInit, OnChanges {
     newComment.userId = this.currentUserId;
     newComment.message = this.commentsForm.get('comment').value;
     newComment.date = new Date().toISOString();
-    console.log(newComment);
 
     this.commentsService.addComment(newComment).subscribe((res) => {
       this.errorServicce.displaySuccessToast(res['message'], '');
