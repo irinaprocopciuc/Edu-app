@@ -53,7 +53,6 @@ export class CoursesComponent implements OnInit {
     this.isFileSelected = true;
     this.fileSelectedName = file;
     this.isUploadBtnClicked = false;
-    console.log(file);
   }
 
   goToUploadFilePage(): void {
@@ -64,7 +63,6 @@ export class CoursesComponent implements OnInit {
 
   private getCourseFiles(coursename: string): void {
     this.courseService.getCouseFiles(coursename).subscribe((filesList) => {
-      console.log(filesList);
       this.resourcesList = filesList['response'];
     });
   }

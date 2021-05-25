@@ -29,6 +29,6 @@ export class CommentsService {
   }
 
   editComment(editedComment: EditComment) {
-    return this.http.patch(`${this.baseUrl}/comment/editComment`, {...editedComment});
+    return this.http.put(`${this.baseUrl}/comment/editComment`, {...editedComment});
   }
 }

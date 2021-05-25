@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.loginForm.getRawValue());
     this.loginService.loginUser(this.loginForm.getRawValue()).subscribe(
       (resp: LoginResp) => {
         let userDetails = resp.userDetails[0];

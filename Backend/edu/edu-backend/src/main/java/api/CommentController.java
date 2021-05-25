@@ -98,7 +98,7 @@ public class CommentController {
         }
     }
 
-    @PatchMapping(path = "/editComment")
+    @PutMapping(path = "/editComment")
     public ResponseEntity<String> editComment(@Valid @RequestBody EditComment editComment) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
 

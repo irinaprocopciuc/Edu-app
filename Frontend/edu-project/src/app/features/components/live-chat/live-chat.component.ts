@@ -25,7 +25,6 @@ export class LiveChatComponent implements OnInit {
 
   private getUsersList(): void {
     this.userService.getUsers().subscribe(usersList => {
-      console.log(usersList);
       this.users = usersList['response'].filter(res => res.name !== this.activeUsername);
     })
   }

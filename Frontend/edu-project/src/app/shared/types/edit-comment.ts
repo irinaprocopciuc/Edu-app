@@ -1,6 +1,6 @@
 export interface EditComment {
   commentId: string;
-  userID: string;
+  userId: string;
   message: string;
   date: string;
 }

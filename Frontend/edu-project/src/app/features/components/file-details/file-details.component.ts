@@ -47,26 +47,24 @@ export class FileDetailsComponent implements OnInit, OnChanges {
 
   onFocusOut(comment: Comment): void {
     comment.isEditMode = false;
-    console.log(comment);
     let editedComment: EditComment = {
       commentId: '',
-      userID: '',
+      userId: '',
       message: '',
       date: ''
     }
     editedComment.commentId = comment.commentId;
-    editedComment.userID = this.currentUserId;
+    editedComment.userId = this.currentUserId;
     editedComment.message = comment.message;
     editedComment.date = new Date().toISOString();
 
     this.commentsService.editComment(editedComment).subscribe(response => {
-      console.log(response);
+      this.errorServicce.displaySuccessToast(response['message'], '');
     })
 
   }
 
   deleteComment(comment: Comment): void {
-    console.log(comment);
     this.commentsService.deleteComment(comment.commentId).subscribe((resp) => {
       this.errorServicce.displaySuccessToast(resp['message'], '');
     });
@@ -76,7 +74,6 @@ export class FileDetailsComponent implements OnInit, OnChanges {
   }
 
   addComment(): void {
-    console.log(this.commentsForm.getRawValue());
     let newComment: CommentDetails = {
       fileName: '',
       courseName: '',
@@ -113,7 +110,6 @@ export class FileDetailsComponent implements OnInit, OnChanges {
         let fileUrl = URL.createObjectURL(fileRes);
         this.src = fileUrl;
         this.retrieveComments();
-        console.log(fileUrl);
       });
   }
 
@@ -121,7 +117,6 @@ export class FileDetailsComponent implements OnInit, OnChanges {
     this.commentsService
       .getFileComments(this.fileName, this.courseName)
       .subscribe((commentsList) => {
-        console.log(commentsList);
         this.commentsList = commentsList['response'];
         this.isLoading = false;
       });
