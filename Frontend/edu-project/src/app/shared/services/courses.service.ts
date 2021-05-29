@@ -16,7 +16,15 @@ export class CoursesService {
     return this.http.get<Course>(`${this.baseURL}/courses/userId=${userId}`);
   }
 
+  getCoursesForTeacher(teacherId: string): Observable<Course> {
+    return this.http.get<Course>(`${this.baseURL}/courses/teacherId=${teacherId}`);
+  }
+
   getCouseFiles(courseName: string): Observable<any> {
     return this.http.get<any>(`${this.baseURL}/courses/getCourseFiles/courseName=${courseName}`);
+  }
+
+  getCourseProjects(courseName: string, userId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}/courses/getCourseUserProjects/courseName=${courseName}&userId=${userId}`);
   }
 }

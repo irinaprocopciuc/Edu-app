@@ -14,4 +14,6 @@ public interface UploadFileInterface {
 	boolean deleteFile(String fileName,String courseName);
 
 	Resource sendFile(String fileName, String courseName);
+
+	boolean storeProject(MultipartFile fileDetails,String courseName, String userId);
 }

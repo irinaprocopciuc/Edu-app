@@ -26,4 +26,10 @@ public class CoursesService {
 	public List<String> getCourseFiles(String courseName) {
 		return conn.getCourseFiles(courseName);
 	}
+
+	public List<Map<String, String>> getCoursesForTeacher(String teacherId) {return conn.getCoursesForTeacher(teacherId);}
+
+	public List<String> getCourseUserProjects(String courseName,String userId) {
+		return conn.getCourseUserProjects(courseName,userId);
+	}
 }

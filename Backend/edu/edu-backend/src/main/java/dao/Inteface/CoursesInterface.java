@@ -5,6 +5,10 @@ import java.util.Map;
 
 public interface CoursesInterface {
 	public List<Map<String, String>> getCourses(String userId);
-	
+
 	public List<String> getCourseFiles(String courseName);
+
+	public List<String> getCourseUserProjects(String courseName, String userId);
+
+	public List<Map<String, String>> getCoursesForTeacher(String userId);
 }

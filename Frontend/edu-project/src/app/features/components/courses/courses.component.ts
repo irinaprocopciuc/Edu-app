@@ -23,6 +23,7 @@ export class CoursesComponent implements OnInit {
   isFileSelected = false;
   fileSelectedName: string;
   isUploadBtnClicked = false;
+  userType: string;
 
   constructor(
     private readonly router: Router,
@@ -33,8 +34,13 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
     let url = this.router.url;
     this.activeUser = url.split('/').filter((item) => item !== '')[0];
-    this.getUserCourses(this.activeUser);
     this.userId = localStorage.getItem('userId');
+    this.userType = localStorage.getItem('type');
+    if(this.userType === 'student') {
+      this.getUserCourses(this.activeUser);
+    } else if (this.userType === 'teacher') {
+      this.getCoursesForTeacher(this.activeUser);
+    }
   }
 
   selectCourse(course: Course): void {
@@ -61,6 +67,12 @@ export class CoursesComponent implements OnInit {
     this.router.navigate([`${this.userId}/homepage/courses/upload`]);
   }
 
+  fileAdded(event): void {
+    if(event) {
+      this.getCourseFiles(this.selectedCourse.name.replace(/\s/g, ''));
+    }
+  }
+
   private getCourseFiles(coursename: string): void {
     this.courseService.getCouseFiles(coursename).subscribe((filesList) => {
       this.resourcesList = filesList['response'];
@@ -69,6 +81,12 @@ export class CoursesComponent implements OnInit {
 
   private getUserCourses(user: string): void {
     this.courseService.getCourses(user).subscribe((courses) => {
+      this.coursesList = courses['response'];
+    });
+  }
+
+  private getCoursesForTeacher(user:string): void {
+    this.courseService.getCoursesForTeacher(user).subscribe((courses) => {
       this.coursesList = courses['response'];
     });
   }

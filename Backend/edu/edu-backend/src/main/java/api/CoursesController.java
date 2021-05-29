@@ -48,12 +48,33 @@ public class CoursesController {
 					HttpStatus.NOT_FOUND);
 		}
 	}
+
+	@GetMapping(path = "/teacherId={teacherId}")
+	public ResponseEntity<String> getCoursesForTeacher(@PathVariable("teacherId") String teacherId) throws JsonProcessingException {
+		Map<String, Object> map = new HashMap<>();
+		List<Map<String, String>> coursesList = coursesService.getCoursesForTeacher(teacherId);
+		if (!coursesList.isEmpty()) {
+			map.put("status", HttpStatus.OK);
+			map.put("code", "200");
+			map.put("message", "Courses retrieved!");
+			map.put("response", coursesList);
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.OK);
+		} else {
+			map.put("status", HttpStatus.NOT_FOUND);
+			map.put("code", "404");
+			map.put("message", "Courses for teacher not found!");
+			map.put("response", "");
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.NOT_FOUND);
+		}
+	}
 	
 	@GetMapping(path = "/getCourseFiles/courseName={courseName}")
 	public ResponseEntity<String> getCourseFiles(@PathVariable("courseName") String courseName) throws JsonProcessingException {
 		Map<String, Object> map = new HashMap<>();
 		List<String> filesList = coursesService.getCourseFiles(courseName);
-		if (!filesList.isEmpty()) {
+		if (filesList != null) {
 			map.put("status", HttpStatus.OK);
 			map.put("code", "200");
 			map.put("message", "Files list retrieved!");
@@ -63,7 +84,28 @@ public class CoursesController {
 		} else {
 			map.put("status", HttpStatus.NOT_FOUND);
 			map.put("code", "404");
-			map.put("message", "Course couldn't be found!");
+			map.put("message", "Files for course couldn't be found!");
+			map.put("response", "");
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping(path = "/getCourseUserProjects/courseName={courseName}&userId={userId}")
+	public ResponseEntity<String> getCourseUserProjects(@PathVariable("courseName") String courseName,@PathVariable("userId") String userId) throws JsonProcessingException {
+		Map<String, Object> map = new HashMap<>();
+		List<String> projectList = coursesService.getCourseUserProjects(courseName,userId);
+		if (projectList != null) {
+			map.put("status", HttpStatus.OK);
+			map.put("code", "200");
+			map.put("message", "Projects for user retrieved!");
+			map.put("response", projectList);
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.OK);
+		} else {
+			map.put("status", HttpStatus.NOT_FOUND);
+			map.put("code", "404");
+			map.put("message", "Projects for user couldn't be found!");
 			map.put("response", "");
 			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
 					HttpStatus.NOT_FOUND);

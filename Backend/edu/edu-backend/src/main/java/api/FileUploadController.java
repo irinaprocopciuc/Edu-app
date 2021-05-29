@@ -55,6 +55,26 @@ public class FileUploadController {
 		map.put("message", "Couldn't store file!");
 		return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
 				HttpStatus.BAD_REQUEST);
+	}
+
+	@PostMapping(path = "/uploadProject")
+	public ResponseEntity<String> uploadProject(@RequestParam("file") MultipartFile file,@RequestParam("course") String course,@RequestParam("userId") String userId, HttpServletResponse r) throws JsonProcessingException {
+
+		Map<String, Object> map = new HashMap<>();
+
+		if (uploadService.storeProject(file, course, userId)) {
+			map.put("status", HttpStatus.OK);
+			map.put("code", "200");
+			map.put("message", "Project stored!");
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.OK);
+		}
+
+		map.put("status", HttpStatus.BAD_REQUEST);
+		map.put("code", "400");
+		map.put("message", "Couldn't store project!");
+		return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+				HttpStatus.BAD_REQUEST);
 
 	}
 	

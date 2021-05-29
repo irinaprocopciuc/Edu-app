@@ -40,8 +40,33 @@ public class Courses implements CoursesInterface {
 			specId = rs.getString(1);
 			yearSemId = rs.getString(2);
 
-			ResultSet res = stmt.executeQuery("select c.idclass,c.name, c.numberofcredits, t.name from edu.class c inner join edu.teacher t on c.idTeacherC = t.idTeacher where c.idSpec ='" + specId
+			ResultSet res = stmt.executeQuery("select c.idclass,c.name, c.numberofcredits, t.name from edu.class c inner join edu.user t on c.idTeacherC = t.idUser where c.idSpec ='" + specId
 					+ "' and c.idYearSem ='" + yearSemId + "';");
+
+			while (res.next()) {
+				Map<String, String> courses = new HashMap<>();
+				courses.put("idclass", res.getString(1));
+				courses.put("name", res.getString(2));
+				courses.put("credits", res.getString(3));
+				courses.put("teachername", res.getString(4));
+				coursesList.add(courses);
+			}
+			return coursesList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return coursesList;
+	}
+
+	@Override
+	public List<Map<String, String>> getCoursesForTeacher(String teacherId) {
+		List<Map<String, String>> coursesList = new ArrayList<>();
+		String specId = null;
+		String yearSemId = null;
+		try {
+			Statement stmt = conn.createStatement();
+
+			ResultSet res = stmt.executeQuery("select c.idclass,c.name, c.numberofcredits, t.name from edu.class c inner join edu.user t on c.idTeacherC = t.idUser where c.idTeacherC ='" + teacherId + "';");
 
 			while (res.next()) {
 				Map<String, String> courses = new HashMap<>();
@@ -63,7 +88,7 @@ public class Courses implements CoursesInterface {
 
 		List<String> response = new ArrayList<String>();
 		
-		if(new File(System.getProperty("user.dir")+"\\courseFiles\\",courseName).exists()) {
+		if(new File(System.getProperty("user.dir")+"\\courseFiles\\"+courseName).exists()) {
 			File dir = new File(System.getProperty("user.dir")+"\\courseFiles\\"+courseName+"\\");
 			
 			for (File file : dir.listFiles()) {
@@ -72,5 +97,37 @@ public class Courses implements CoursesInterface {
 		}
 		
 		return response;
+	}
+
+	@Override
+	public List<String> getCourseUserProjects(String courseName,String userId) {
+
+		List<String> response = new ArrayList<String>();
+
+		if(new File(System.getProperty("user.dir")+"\\projects\\"+courseName+"\\"+userId).exists() && findUserById(userId)) {
+			File dir = new File(System.getProperty("user.dir")+"\\projects\\"+courseName+"\\"+userId);
+
+			for (File file : dir.listFiles()) {
+				response.add(file.getName());
+			}
+		}
+
+		return response;
+	}
+
+
+	private boolean findUserById(String userId){
+		try {
+			Statement stmt = conn.createStatement();
+
+			ResultSet res = stmt.executeQuery("select name from user where idUser ='"+userId+"';");
+
+			if(res.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

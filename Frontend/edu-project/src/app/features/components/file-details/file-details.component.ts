@@ -60,8 +60,8 @@ export class FileDetailsComponent implements OnInit, OnChanges {
 
     this.commentsService.editComment(editedComment).subscribe(response => {
       this.errorServicce.displaySuccessToast(response['message'], '');
-    })
-
+    });
+    this.retrieveComments();
   }
 
   deleteComment(comment: Comment): void {

@@ -33,6 +33,22 @@ export class FileUploadService {
     });
   }
 
+  uploadProject(file: File, course: string, userId: string) {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('course', course);
+    formData.append('userId', userId);
+
+    return this.http.post(`${this.baseURL}/uploadProject`, formData, {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+        reportProgress: 'true',
+        responseType: 'text',
+      }),
+    });
+  }
+
+
   getFiles(courseName: string) {
     return this.http.get(`${this.baseURL}/getFiles?courseName=${courseName}`);
   }

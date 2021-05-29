@@ -12,6 +12,7 @@
         {{ course.credits }}
       </div>
     </div>
+    <h2>Final Thesis</h2>
   </div>
 
   <div class="right-side">
@@ -41,7 +42,10 @@
             />
           </div>
         </div>
-        <button mat-button color="primary" (click)="goToUploadFilePage()">
+        <button *ngIf="userType === 'teacher'" mat-button color="primary" (click)="goToUploadFilePage()">
+          Upload resource
+        </button>
+        <button *ngIf="userType === 'student'" mat-button color="primary" (click)="goToUploadFilePage()">
           Upload project
         </button>
       </div>
@@ -50,7 +54,7 @@
         *ngIf="isFileSelected"
         [file]="fileSelectedName"
       ></app-file-details>
-      <app-upload-file *ngIf="isUploadBtnClicked"></app-upload-file>
+      <app-upload-file *ngIf="isUploadBtnClicked" (fileAdded)="fileAdded($event)"></app-upload-file>
     </div>
   </div>
 </div>

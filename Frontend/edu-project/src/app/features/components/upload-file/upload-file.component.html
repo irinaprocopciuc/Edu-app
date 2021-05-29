@@ -1,17 +1,30 @@
 <div class="upload-files">
-  <div class="page-title">Upload your assignment</div>
-  <form (ngSubmit)="onSubmit()">
-    <label for="actual-btn">Choose file</label>
-    <input
-      #selectedDoc
-      (change)="changeSelectedFile($event)"
-      id="actual-btn"
-      type="file"
-      accept="application/pdf"
-      hidden
-    />
-    <span id="file-chosen" *ngIf="noFileSelected">No file chosen</span>
-    <div class="file-name" *ngIf="!noFileSelected">{{ fileName }}</div>
-    <button mat-button color="accent" type="submit">Upload file</button>
-  </form>
+  <div class="upload-form">
+    <div class="page-title">
+      Upload your
+      <p *ngIf="userType === 'teacher'">resource</p>
+      <p *ngIf="userType === 'student'">assignment</p>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+      <label for="actual-btn">Choose file</label>
+      <input
+        #selectedDoc
+        (change)="changeSelectedFile($event)"
+        id="actual-btn"
+        type="file"
+        accept="application/pdf"
+        hidden
+      />
+      <span id="file-chosen" *ngIf="noFileSelected">No file chosen</span>
+      <div class="file-name" *ngIf="!noFileSelected">{{ fileName }}</div>
+      <button mat-button color="accent" type="submit">Upload file</button>
+    </form>
+  </div>
+
+  <div class="projects-list" *ngIf="userType === 'student'">
+    <p class="page-title">Your projects</p>
+    <div class="project" *ngFor="let project of projectsList">
+      <li>{{project}}</li>
+    </div>
+  </div>
 </div>

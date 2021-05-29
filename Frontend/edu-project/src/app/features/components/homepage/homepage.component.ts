@@ -21,6 +21,8 @@ export class HomepageComponent implements OnInit {
 
   logout(): void {
     localStorage.setItem('username', null);
+    localStorage.setItem('userId', null);
+    localStorage.setItem('type', null);
     this.loginservice.setActiveUser(null);
     this.router.navigate(['login']);
   }

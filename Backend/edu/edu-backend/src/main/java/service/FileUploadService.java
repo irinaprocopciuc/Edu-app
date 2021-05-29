@@ -29,5 +29,8 @@ public class FileUploadService {
 	public Resource sendFile(String fileName, String courseName) {
 		return db.sendFile(fileName,courseName);
 	}
-	
+
+	public boolean storeProject(MultipartFile fileDetails,String courseName, String userId) {
+		return db.storeProject(fileDetails,courseName, userId);
+	}
 }
