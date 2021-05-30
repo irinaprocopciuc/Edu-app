@@ -10,6 +10,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class LiveChatComponent implements OnInit {
   users: UserDetails[];
   isUserSelected = false;
+  selectedUser: UserDetails;
   activeUsername: string;
 
   constructor(private readonly userService: UserService) { }
@@ -20,6 +21,7 @@ export class LiveChatComponent implements OnInit {
   }
 
   selectUser(user: UserDetails): void {
+    this.selectedUser = user;
     this.isUserSelected = true;
   }
 

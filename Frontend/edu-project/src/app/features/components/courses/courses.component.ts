@@ -5,6 +5,7 @@ import { Course } from 'src/app/shared/types/course';
 import { UploadFileModel } from 'src/app/shared/types/upload-file-model';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { ThesisService } from 'src/app/shared/services/thesis.service';
 
 @Component({
   selector: 'app-courses',
@@ -24,6 +25,7 @@ export class CoursesComponent implements OnInit {
   fileSelectedName: string;
   isUploadBtnClicked = false;
   userType: string;
+  isOnThesisPage = false;
 
   constructor(
     private readonly router: Router,
@@ -47,6 +49,8 @@ export class CoursesComponent implements OnInit {
     this.courseSelected = true;
     this.selectedCourse = course;
     this.isFileSelected = false;
+    this.isOnThesisPage = false;
+    this.isUploadBtnClicked = false;
     localStorage.setItem('selectedCourseName', this.selectedCourse.name);
     this.router.navigate([`${this.userId}/homepage/courses`]);
     this.getCourseFiles(course.name.replace(/\s/g, ''));
@@ -71,6 +75,12 @@ export class CoursesComponent implements OnInit {
     if(event) {
       this.getCourseFiles(this.selectedCourse.name.replace(/\s/g, ''));
     }
+  }
+
+  goToThesisPage(): void{
+    this.router.navigate([`${this.userId}/homepage/courses/thesis`]);
+    this.selectedCourse = null;
+    this.isOnThesisPage = true;
   }
 
   private getCourseFiles(coursename: string): void {

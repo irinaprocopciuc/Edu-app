@@ -132,3 +132,20 @@
     }
   }
 }
+
+.navigate {
+  cursor: pointer;
+
+  &:hover {
+    color: $light-grey !important;
+  }
+}
+
+
+.thesis-page {
+  width: 100%;
+}
+
+.courses-container {
+  height: 100%;
+}

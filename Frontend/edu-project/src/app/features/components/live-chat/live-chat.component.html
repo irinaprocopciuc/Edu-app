@@ -1,13 +1,13 @@
 <div class="chat-page">
   <div class="people-container">
     <h2>People</h2>
-    <div class="username" *ngFor="let user of users" (click)="selectUser(user)">
+    <div class="username"  [ngClass]="{ selected: user?.iduser === selectedUser?.iduser }" *ngFor="let user of users" (click)="selectUser(user)">
       <img src="../../../../assets/user.png" alt="" />
       {{ user.name }}
     </div>
   </div>
   <div *ngIf="!isUserSelected" class="no-active-chat">
-    <img src="../../../../assets/choosing.png" alt="" />
+    <img src="../../../../assets/select-course.png" alt="" />
     <div class="message">Please select a user to start chatting with</div>
   </div>
   <div *ngIf="isUserSelected">user</div>

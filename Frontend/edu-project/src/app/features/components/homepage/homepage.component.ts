@@ -23,6 +23,7 @@ export class HomepageComponent implements OnInit {
     localStorage.setItem('username', null);
     localStorage.setItem('userId', null);
     localStorage.setItem('type', null);
+    localStorage.setItem('studyCycle', null);
     this.loginservice.setActiveUser(null);
     this.router.navigate(['login']);
   }

@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', userDetails.name);
         localStorage.setItem('userId', userDetails.iduser);
         localStorage.setItem('type', userDetails.type);
+        localStorage.setItem('studyCycle', userDetails.studyCycle);
         this.loginService.setActiveUser(userDetails);
         this.router.navigate([`${userDetails.iduser}/homepage`]);
       },

@@ -7,6 +7,7 @@ import { LiveChatComponent } from './features/components/live-chat/live-chat.com
 import { LoginComponent } from './features/components/login/login.component';
 import { RegisterComponent } from './features/components/register/register.component';
 import { UploadFileComponent } from './features/components/upload-file/upload-file.component';
+import { ThesisComponent } from './features/components/thesis/thesis.component';
 
 const routes: Routes = [
   {
@@ -42,14 +43,18 @@ const routes: Routes = [
           },
           {
             path: 'upload',
-            component: UploadFileComponent
-          }
-        ]
+            component: UploadFileComponent,
+          },
+          {
+            path: 'thesis',
+            component: ThesisComponent,
+          },
+        ],
       },
       {
         path: 'chat',
         component: LiveChatComponent,
-      }
+      },
     ],
   },
 ];

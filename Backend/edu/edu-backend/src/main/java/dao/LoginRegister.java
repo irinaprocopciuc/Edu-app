@@ -35,13 +35,14 @@ public class LoginRegister implements LoginRegisterInterface {
 		List<Map<String, String>> userDetails = new ArrayList<>();
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select iduser, username, userType from user where username ='" + credentials.getUsername()
+			ResultSet rs = stmt.executeQuery("select iduser, username, userType, studyCycle from user where username ='" + credentials.getUsername()
 					+ "' and pass='" + credentials.getPassword() + "';");
 			while (rs.next()) {
 				Map<String, String> response = new HashMap<>();
 				response.put("iduser", rs.getString(1));
 				response.put("name", rs.getString(2));
 				response.put("type", rs.getString(3));
+				response.put("studyCycle", rs.getString(4));
 				userDetails.add(response);
 			}
 			return userDetails;

@@ -50,8 +50,6 @@ export class UploadFileComponent implements OnInit {
     this.courseService.getCourseProjects(this.selectedCourse.replace(/\s/g, ''), this.userId).subscribe(
       projectsRes => {
       this.projectsList = projectsRes.response;
-      console.log(this.projectsList);
-      this.errorService.displaySuccessToast(projectsRes['message'], '');
     })
   }
 

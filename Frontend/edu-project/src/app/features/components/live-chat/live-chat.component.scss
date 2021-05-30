@@ -17,6 +17,11 @@
         background-color: $beige;
         cursor: pointer;
       }
+
+      &.selected {
+        background-color: rgb(250, 241, 231);
+      }
+
       img {
         width: 20px;
         height: 20px;

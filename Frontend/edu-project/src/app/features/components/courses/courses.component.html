@@ -12,49 +12,74 @@
         {{ course.credits }}
       </div>
     </div>
-    <h2>Final Thesis</h2>
+    <h2
+      *ngIf="userType === 'student'"
+      (click)="goToThesisPage()"
+      class="navigate"
+    >
+      Final Thesis
+    </h2>
   </div>
 
   <div class="right-side">
-    <div *ngIf="!courseSelected" class="no-course-selected">
-      <img src="../../../../assets/select-course.png" alt="" />
-      <h2>Please select a course</h2>
-    </div>
-
-    <div *ngIf="courseSelected" class="course-selected">
-      <div class="course-details">
-        <div class="course-header">
-          <p class="course">
-            {{ selectedCourse.name }} ({{ selectedCourse.credits }} credits)
-          </p>
-          <p class="teacher">{{ selectedCourse.teachername }}</p>
-        </div>
+    <div *ngIf="!isOnThesisPage" class="courses-container">
+      <div *ngIf="!courseSelected" class="no-course-selected">
+        <img src="../../../../assets/select-course.png" alt="" />
+        <h2>Please select a course</h2>
       </div>
 
-      <div class="files-section">
-        <div class="resources">
-          <div class="title">Resources</div>
-          <div class="resource" *ngFor="let res of resourcesList">
-            <p>{{ res }}</p>
-            <img
-              src="../../../../assets/preview.png"
-              (click)="seeFileDetails(res)"
-            />
+      <div *ngIf="courseSelected" class="course-selected">
+        <div class="course-details">
+          <div class="course-header">
+            <p class="course">
+              {{ selectedCourse.name }} ({{ selectedCourse.credits }} credits)
+            </p>
+            <p class="teacher">{{ selectedCourse.teachername }}</p>
           </div>
         </div>
-        <button *ngIf="userType === 'teacher'" mat-button color="primary" (click)="goToUploadFilePage()">
-          Upload resource
-        </button>
-        <button *ngIf="userType === 'student'" mat-button color="primary" (click)="goToUploadFilePage()">
-          Upload project
-        </button>
+
+        <div class="files-section">
+          <div class="resources">
+            <div class="title">Resources</div>
+            <div class="resource" *ngFor="let res of resourcesList">
+              <p>{{ res }}</p>
+              <img
+                src="../../../../assets/preview.png"
+                (click)="seeFileDetails(res)"
+              />
+            </div>
+          </div>
+          <button
+            *ngIf="userType === 'teacher'"
+            mat-button
+            color="primary"
+            (click)="goToUploadFilePage()"
+          >
+            Upload resource
+          </button>
+          <button
+            *ngIf="userType === 'student'"
+            mat-button
+            color="primary"
+            (click)="goToUploadFilePage()"
+          >
+            Upload project
+          </button>
+        </div>
+        <div class="rainbow-border"></div>
+        <app-file-details
+          *ngIf="isFileSelected"
+          [file]="fileSelectedName"
+        ></app-file-details>
+        <app-upload-file
+          *ngIf="isUploadBtnClicked"
+          (fileAdded)="fileAdded($event)"
+        ></app-upload-file>
       </div>
-      <div class="rainbow-border"></div>
-      <app-file-details
-        *ngIf="isFileSelected"
-        [file]="fileSelectedName"
-      ></app-file-details>
-      <app-upload-file *ngIf="isUploadBtnClicked" (fileAdded)="fileAdded($event)"></app-upload-file>
+    </div>
+
+    <div *ngIf="isOnThesisPage" class="thesis-page">
+      <app-thesis></app-thesis>
     </div>
   </div>
 </div>
