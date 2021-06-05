@@ -1,0 +1,25 @@
+@import "src/styles/colors";
+@import "src/styles/mixins";
+
+.view-page {
+  h3 {
+    font-weight: 600;
+    color: $dark-grey;
+    border-bottom: 2px solid $yellow;
+    padding-bottom: 5px;
+    padding-top: 20px;
+  }
+}
+
+.content {
+  .mat-table {
+    width: 100%;
+    margin-bottom: 20px;
+
+    img {
+      width: 22px;
+      padding-top: 10px;
+      cursor: pointer;
+    }
+  }
+}

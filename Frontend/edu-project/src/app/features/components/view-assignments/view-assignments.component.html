@@ -1,0 +1,40 @@
+<div class="view-page">
+  <div *ngIf="noAssignments">
+    <h3>No assignments submitted yet</h3>
+  </div>
+
+  <div *ngIf="!noAssignments" class="content">
+    <h3>Submitted Assignments</h3>
+    <div>
+      <table mat-table [dataSource]="assignmentsList" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Student ID</th>
+          <td mat-cell *matCellDef="let element">{{ element.userId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Student Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="assignment">
+          <th mat-header-cell *matHeaderCellDef>Assignment</th>
+          <td mat-cell *matCellDef="let element">{{ element.filename }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="download">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <img
+              src="../../../../assets/download_file.png"
+              (click)="downloadAssignmentFile(element)"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

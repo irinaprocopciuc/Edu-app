@@ -26,9 +26,10 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ThesisComponent } from './components/thesis/thesis.component';
+import { ViewAssignmentsComponent } from './components/view-assignments/view-assignments.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent, FileDetailsComponent, UploadFileComponent, ThesisComponent],
+  declarations: [LoginComponent, RegisterComponent, HomepageComponent, LiveChatComponent, CoursesComponent, FileDetailsComponent, UploadFileComponent, ThesisComponent, ViewAssignmentsComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

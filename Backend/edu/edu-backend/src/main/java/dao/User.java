@@ -35,7 +35,7 @@ public class User implements UserInterface {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt
-					.executeQuery("select idUser, username from user;");
+					.executeQuery("select idUser, name from user;");
 			while (rs.next()) {
 				Map<String, String> user = new HashMap<>();
 				user.put("iduser", rs.getString(1));

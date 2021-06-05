@@ -1,9 +1,9 @@
-<div class="upload-files">
+<div class="upload-files" [ngClass]="{'centered': userType==='teacher'}">
   <div class="upload-form">
     <div class="page-title">
       Upload your
-      <p *ngIf="userType === 'teacher'">resource</p>
-      <p *ngIf="userType === 'student'">assignment</p>
+      <span *ngIf="userType === 'teacher'">resource</span>
+      <span *ngIf="userType === 'student'">assignment</span>
     </div>
     <form (ngSubmit)="onSubmit()">
       <label for="actual-btn">Choose file</label>

@@ -25,5 +25,9 @@ public class ThesisService {
         return conn.getChosenTheme(idStudent);
     }
 
+    public List<Map<String, String>> getTeacherThemes(String idTeacher) {
+        return conn.getTeacherThemes(idTeacher);
+    }
+
     public int chooseTheme(Thesis thesis) { return conn.chooseTheme(thesis); };
 }

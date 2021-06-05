@@ -71,6 +71,27 @@ public class ThesisController {
         }
     }
 
+    @GetMapping(path = "/getThemesForTeachers/idTeacher={idTeacher}")
+    public ResponseEntity<String> getTeacherThemes(@PathVariable("idTeacher") String idTeacher) throws JsonProcessingException {
+        Map<String, Object> map = new HashMap<>();
+        List<Map<String, String>> thesisList = thesisService.getTeacherThemes(idTeacher);
+        if (thesisList != null) {
+            map.put("status", HttpStatus.OK);
+            map.put("code", "200");
+            map.put("message", "Thesis theme retrieved");
+            map.put("response", thesisList);
+            return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+                    HttpStatus.OK);
+        } else {
+            map.put("status", HttpStatus.NOT_FOUND);
+            map.put("code", "404");
+            map.put("message", "Tecaher has no chosen themes");
+            map.put("response", "");
+            return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+                    HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping(path = "/chooseTheme")
     public ResponseEntity<String> chooseTheme(@Valid @RequestBody Thesis thesis) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();

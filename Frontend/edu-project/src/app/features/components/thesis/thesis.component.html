@@ -1,78 +1,85 @@
 <div class="thesis">
-  <div class="not-chosen" *ngIf="!hasChosenTheme">
-    <h3>Choose your theme</h3>
+  <div class="not-chosen" *ngIf="displayTable">
+    <h3 *ngIf="userType === 'student'">Choose your theme</h3>
+    <h3 *ngIf="userType === 'teacher'">Assigned students</h3>
     <div class="data">
       <table mat-table [dataSource]="thesisList" class="mat-elevation-z8">
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="idTheme">
+
+        <ng-container matColumnDef="idTheme" *ngIf="userType === 'student'">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
             <mat-radio-button (change)="selectTheme(element)"></mat-radio-button>
           </td>
         </ng-container>
 
-        <!-- Position Column -->
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef>Type</th>
           <td mat-cell *matCellDef="let element">{{ element.type }}</td>
         </ng-container>
 
-        <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
-        <!-- Weight Column -->
         <ng-container matColumnDef="details">
           <th mat-header-cell *matHeaderCellDef>Details</th>
           <td mat-cell *matCellDef="let element">{{ element.details }}</td>
         </ng-container>
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="technologies">
           <th mat-header-cell *matHeaderCellDef>Technologies</th>
           <td mat-cell *matCellDef="let element">{{ element.technologies }}</td>
         </ng-container>
 
         <ng-container matColumnDef="teacherName">
-          <th mat-header-cell *matHeaderCellDef>Teacher</th>
-          <td mat-cell *matCellDef="let element">{{ element.teacherName }}</td>
+          <th mat-header-cell *matHeaderCellDef>
+            <span *ngIf="userType === 'student'">Teacher</span>
+            <span *ngIf="userType === 'teacher'">Student</span>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="userType === 'student'">{{ element?.teacherName }}</span>
+            <span *ngIf="userType === 'teacher'">{{ element?.studentName }}</span>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
-      <button mat-raised-button color="accent" (click)="save()">
+      <button *ngIf="userType === 'student'" mat-raised-button color="accent" (click)="save()">
         Choose theme
       </button>
     </div>
   </div>
 
-  <div class="chosen" *ngIf="hasChosenTheme">
+  <div class="chosen" *ngIf="hasChosenTheme && userType === 'student'">
     <h3>Chosen thesis theme</h3>
    <div class="details">
     <div>
       <div class="chosen-theme-row">
         <p>Name</p>
-        <div>{{ chosenTheme.name }}</div>
+        <div>{{ chosenTheme?.name }}</div>
       </div>
       <div class="chosen-theme-row">
         <p>Details</p>
-        <div>{{ chosenTheme.details }}</div>
+        <div>{{ chosenTheme?.details }}</div>
       </div>
     </div>
      <div>
       <div class="chosen-theme-row">
         <p>Technologies</p>
-        <div>{{ chosenTheme.technologies }}</div>
+        <div>{{ chosenTheme?.technologies }}</div>
       </div>
       <div class="chosen-theme-row">
         <p>Teacher</p>
-        <div>{{ chosenTheme.teacherName }}</div>
+        <div>{{ chosenTheme?.teacherName }}</div>
       </div>
      </div>
    </div>
+  </div>
+
+  <div *ngIf="!hasChosenTheme && userType === 'teacher'">
+    <h3 class="no-students">No students assigned yet!</h3>
   </div>
 </div>

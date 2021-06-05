@@ -1,7 +1,7 @@
 <div class="header">
   <div class="user-style">
     <img src="../../../assets/user.png" alt="">
-    <div class="username">Welcome, {{username}}</div>
+    <div class="username">Welcome, {{username | titlecase}}</div>
   </div>
  <div class="buttons-container">
   <button mat-button color="primary" [routerLink]="['courses']">Courses</button>

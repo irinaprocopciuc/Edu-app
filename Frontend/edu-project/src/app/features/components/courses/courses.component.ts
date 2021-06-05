@@ -24,6 +24,7 @@ export class CoursesComponent implements OnInit {
   isFileSelected = false;
   fileSelectedName: string;
   isUploadBtnClicked = false;
+  isViewAssignmentBtnClicked = false;
   userType: string;
   isOnThesisPage = false;
 
@@ -51,6 +52,7 @@ export class CoursesComponent implements OnInit {
     this.isFileSelected = false;
     this.isOnThesisPage = false;
     this.isUploadBtnClicked = false;
+    this.isViewAssignmentBtnClicked = false;
     localStorage.setItem('selectedCourseName', this.selectedCourse.name);
     this.router.navigate([`${this.userId}/homepage/courses`]);
     this.getCourseFiles(course.name.replace(/\s/g, ''));
@@ -65,9 +67,17 @@ export class CoursesComponent implements OnInit {
     this.isUploadBtnClicked = false;
   }
 
+  goToAssignmentsPage(): void {
+    this.isFileSelected = false;
+    this.isUploadBtnClicked = false;
+    this.isViewAssignmentBtnClicked = true;
+    this.router.navigate([`${this.userId}/homepage/courses/view`]);
+  }
+
   goToUploadFilePage(): void {
     this.isUploadBtnClicked = true;
     this.isFileSelected = false;
+    this.isViewAssignmentBtnClicked = false;
     this.router.navigate([`${this.userId}/homepage/courses/upload`]);
   }
 
@@ -82,6 +92,7 @@ export class CoursesComponent implements OnInit {
     this.selectedCourse = null;
     this.isOnThesisPage = true;
   }
+
 
   private getCourseFiles(coursename: string): void {
     this.courseService.getCouseFiles(coursename).subscribe((filesList) => {

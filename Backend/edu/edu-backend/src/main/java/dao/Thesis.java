@@ -76,6 +76,32 @@ public class Thesis implements ThesisInterface {
         return thesisList;
     }
 
+    public List<Map<String, String>> getTeacherThemes(String idTeacher) {
+        List<Map<String, String>> thesisList = new ArrayList<>();
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt
+                    .executeQuery("select t.idTheme, t.type, t.name, t.details, t.technologies,t.idStudent, u.name from proposedtheme t inner join user u on t.idStudent = u.idUser where t.idTeacher ='"+idTeacher+"';");
+            while (rs.next()) {
+                Map<String, String> user = new HashMap<>();
+                user.put("idTheme", rs.getString(1));
+                user.put("type", rs.getString(2));
+                user.put("name", rs.getString(3));
+                user.put("details", rs.getString(4));
+                user.put("technologies", rs.getString(5));
+                user.put("idStudent", rs.getString(6));
+                user.put("studentName", rs.getString(7));
+                thesisList.add(user);
+            }
+            return thesisList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return thesisList;
+    }
+
+
     @Override
     public int chooseTheme(model.Thesis thesis) {
         try {

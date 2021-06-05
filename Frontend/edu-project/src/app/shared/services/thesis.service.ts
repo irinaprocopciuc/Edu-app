@@ -19,6 +19,10 @@ export class ThesisService {
   getChosenTheme(idStudent: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/thesis/getChosen/idStudent=${idStudent}`);
   }
+
+  getThemesForTeacher(idTeacher: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/thesis/getThemesForTeachers/idTeacher=${idTeacher}`);
+  }
   chooseTheme(theme: ChooseTheme): Observable<any> {
     return this.http.put(`${this.baseUrl}/thesis/chooseTheme`, {...theme});
   }

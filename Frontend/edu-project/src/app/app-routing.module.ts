@@ -8,6 +8,7 @@ import { LoginComponent } from './features/components/login/login.component';
 import { RegisterComponent } from './features/components/register/register.component';
 import { UploadFileComponent } from './features/components/upload-file/upload-file.component';
 import { ThesisComponent } from './features/components/thesis/thesis.component';
+import { ViewAssignmentsComponent } from './features/components/view-assignments/view-assignments.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
           {
             path: 'upload',
             component: UploadFileComponent,
+          },
+          {
+            path: 'view',
+            component: ViewAssignmentsComponent,
           },
           {
             path: 'thesis',

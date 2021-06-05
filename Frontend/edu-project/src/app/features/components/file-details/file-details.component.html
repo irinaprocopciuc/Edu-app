@@ -8,7 +8,7 @@
       class="pdf-preview"
     ></pdf-viewer>
     <div class="comments">
-      <h2>Comments</h2>
+      <h2>Comments Section</h2>
       <form [formGroup]="commentsForm" (ngSubmit)="addComment()">
         <mat-form-field>
           <textarea
@@ -26,7 +26,7 @@
       <div class="comments-list" *ngIf="!isLoading">
         <div class="comment" *ngFor="let comment of commentsList">
           <div class="title">
-            <div class="username">{{ comment.username | uppercase }}</div>
+            <div class="username">{{ comment.name | titlecase }}</div>
             <div class="date">said on {{ comment.date | date: 'dd-MM-yyy' }} :</div>
           </div>
           <div class="content">

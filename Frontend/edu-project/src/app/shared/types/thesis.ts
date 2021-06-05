@@ -4,7 +4,8 @@ export interface Thesis {
   name: string;
   details: string;
   technologies: string;
-  idTeacher: string;
-  teacherName: string;
+  idTeacher?: string;
+  teacherName?: string;
   idStudent?: string;
+  studentName?: string;
 }

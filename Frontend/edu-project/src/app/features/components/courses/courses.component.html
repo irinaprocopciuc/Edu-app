@@ -12,13 +12,7 @@
         {{ course.credits }}
       </div>
     </div>
-    <h2
-      *ngIf="userType === 'student'"
-      (click)="goToThesisPage()"
-      class="navigate"
-    >
-      Final Thesis
-    </h2>
+    <h2 (click)="goToThesisPage()" class="navigate">Final Thesis</h2>
   </div>
 
   <div class="right-side">
@@ -58,6 +52,14 @@
             Upload resource
           </button>
           <button
+            *ngIf="userType === 'teacher'"
+            mat-button
+            color="primary"
+            (click)="goToAssignmentsPage()"
+          >
+            View assignments
+          </button>
+          <button
             *ngIf="userType === 'student'"
             mat-button
             color="primary"
@@ -75,11 +77,14 @@
           *ngIf="isUploadBtnClicked"
           (fileAdded)="fileAdded($event)"
         ></app-upload-file>
+        <app-view-assignments
+          *ngIf="isViewAssignmentBtnClicked"
+        ></app-view-assignments>
       </div>
     </div>
 
     <div *ngIf="isOnThesisPage" class="thesis-page">
-      <app-thesis></app-thesis>
+      <app-thesis [userType]="userType"></app-thesis>
     </div>
   </div>
 </div>

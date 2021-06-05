@@ -1,11 +1,16 @@
 package api;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +21,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import service.CoursesService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RequestMapping("/courses")
 @RestController
@@ -111,5 +119,41 @@ public class CoursesController {
 					HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
+	@GetMapping(path = "/getCourseProjects/courseName={courseName}")
+	public ResponseEntity<String> getCourseProjects(@PathVariable("courseName") String courseName) throws JsonProcessingException, SQLException {
+		Map<String, Object> map = new HashMap<>();
+		List<Map<String,String>> projectList = coursesService.getCourseProjects(courseName);
+		if (projectList != null) {
+			map.put("status", HttpStatus.OK);
+			map.put("code", "200");
+			map.put("message", "Projects for course retrieved!");
+			map.put("response", projectList);
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.OK);
+		} else {
+			map.put("status", HttpStatus.NOT_FOUND);
+			map.put("code", "404");
+			map.put("message", "Projects for course couldn't be found!");
+			map.put("response", "");
+			return new ResponseEntity<>(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(map),
+					HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping(path = "/downloadFile/fileName={fileName}&courseName={courseName}&userId={userId}",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public ResponseEntity<Resource> sendStudentProject(@PathVariable("fileName") String fileName, @PathVariable("courseName") String courseName, @PathVariable("userId") String userId, HttpServletResponse r, HttpServletRequest request) throws IOException {
+		Resource file = coursesService.sendStudentProject(fileName, courseName, userId);
+
+		if(file!=null) {
+			return ResponseEntity.ok()
+					.contentType(MediaType.parseMediaType(request.getServletContext().getMimeType(file.getFile().getAbsolutePath())))
+					.header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + file.getFilename() + "\"")
+					.body(file);
+
+		}else {
+			return ResponseEntity.badRequest().body(null);
+		}
+	}
+
 }

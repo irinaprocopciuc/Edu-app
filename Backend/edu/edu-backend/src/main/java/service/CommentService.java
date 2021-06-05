@@ -71,7 +71,6 @@ public class CommentService {
             return conn.editComment(editComment);
         }
         return -3;
-
     }
 
 }
