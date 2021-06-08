@@ -6,14 +6,14 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.Ordered;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-@EnableJpaRepositories("dao")
-@ComponentScan(basePackages = {"api", "model", "dao", "service"})
+@ComponentScan(basePackages = {"api", "model", "dao", "service","LiveChat"})
 public class Main {
 
 	public static void main(String[] args) {
@@ -44,5 +44,16 @@ public class Main {
         filterRegistration.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return filterRegistration;
 	}
-	
+/*
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer () {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*")
+                        .allowedOrigins("*");
+            }
+        };
+    }
+*/
 }

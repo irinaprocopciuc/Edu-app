@@ -18,8 +18,9 @@
   <div class="right-side">
     <div *ngIf="!isOnThesisPage" class="courses-container">
       <div *ngIf="!courseSelected" class="no-course-selected">
+        <h2>Nothing selected</h2>
+        <h2 class="second">Select a course to get started</h2>
         <img src="../../../../assets/select-course.png" alt="" />
-        <h2>Please select a course</h2>
       </div>
 
       <div *ngIf="courseSelected" class="course-selected">

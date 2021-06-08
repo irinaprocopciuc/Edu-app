@@ -1,7 +1,12 @@
 <div class="chat-page">
   <div class="people-container">
     <h2>People</h2>
-    <div class="username"  [ngClass]="{ selected: user?.iduser === selectedUser?.iduser }" *ngFor="let user of users" (click)="selectUser(user)">
+    <div
+      class="username"
+      [ngClass]="{ selected: user?.iduser === selectedUser?.iduser }"
+      *ngFor="let user of users"
+      (click)="selectUser(user)"
+    >
       <img src="../../../../assets/user.png" alt="" />
       {{ user.name }}
     </div>
@@ -10,5 +15,10 @@
     <img src="../../../../assets/select-course.png" alt="" />
     <div class="message">Select a user and start chatting</div>
   </div>
-  <div *ngIf="isUserSelected">user</div>
+  <div *ngIf="isUserSelected">
+    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+      <input type="text" formControlName="msg">
+      <button type="submit">Send</button>
+    </form>
+  </div>
 </div>
