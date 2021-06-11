@@ -13,12 +13,36 @@
   </div>
   <div *ngIf="!isUserSelected" class="no-active-chat">
     <img src="../../../../assets/select-course.png" alt="" />
+    <div class="message">Nothing selected</div>
     <div class="message">Select a user and start chatting</div>
   </div>
-  <div *ngIf="isUserSelected">
-    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-      <input type="text" formControlName="msg">
-      <button type="submit">Send</button>
-    </form>
+  <div *ngIf="isUserSelected" class="active-chat">
+    <div class="message-container">
+      <div class="chat-header">
+        <img src="../../../../assets/user.png" alt="">
+        <span>Chat with <strong>{{selectedUser.name}}</strong></span>
+      </div>
+      <div
+        *ngFor="let receivedMsg of receivedMessages"
+        class="sent-message"
+        [ngClass]="{
+          'received-message': receivedMsg.from !== currentUserId
+        }"
+      >
+        {{ receivedMsg.msg }}
+      </div>
+      <!-- <div *ngFor="let sentMsg of sentMessages" class="sent-message">
+        {{sentMsg}}
+      </div> -->
+    </div>
+    <div class="send-message">
+      <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+        <mat-form-field>
+          <mat-label>Type...</mat-label>
+          <input matInput formControlName="msg" />
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit">Send</button>
+      </form>
+    </div>
   </div>
 </div>

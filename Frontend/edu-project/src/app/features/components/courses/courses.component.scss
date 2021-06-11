@@ -29,6 +29,10 @@
         background-color: rgb(250, 241, 231);
       }
 
+      .name {
+        max-width: 80%;
+      }
+
       .credits {
         display: flex;
         justify-content: center;
@@ -52,7 +56,6 @@
         @include no-results-message;
 
         &.second {
-          font-size: medium;
           padding-top: 0px;
         }
       }

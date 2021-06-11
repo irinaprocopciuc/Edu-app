@@ -7,7 +7,7 @@
       (click)="selectCourse(course)"
       class="course-tile"
     >
-      {{ course.name }}
+      <div class="name">{{ course.name }}</div>
       <div class="credits" matTooltip="Number of credits">
         {{ course.credits }}
       </div>
@@ -18,9 +18,9 @@
   <div class="right-side">
     <div *ngIf="!isOnThesisPage" class="courses-container">
       <div *ngIf="!courseSelected" class="no-course-selected">
+        <img src="../../../../assets/select-course.png" alt="" />
         <h2>Nothing selected</h2>
         <h2 class="second">Select a course to get started</h2>
-        <img src="../../../../assets/select-course.png" alt="" />
       </div>
 
       <div *ngIf="courseSelected" class="course-selected">

@@ -1,5 +1,5 @@
-from flask import Flask, request
-from flask_socketio import SocketIO, emit
+from flask import Flask, request, session
+from flask_socketio import SocketIO, emit , join_room, leave_room
 
 
 app = Flask(__name__)
@@ -16,30 +16,35 @@ def index():
 
 @socketio.on('connected')
 def connected(userId):
-    print(request.sid)
     clients.append(request.sid)
     ids.append(userId)
 
 @socketio.on('disconnect')
 def disconnect():
-    print(clients)
-    print(request.sid)
     ids.remove(ids[clients.index(request.sid)])
     clients.remove(request.sid)
+    response = dict()
+    for i in ids:
+        response[i] = clients[ids.index(i)]
+    socketio.emit('receive_users', response)
     print('disconnect')
 
 
-@socketio.on('message')
-def abcd(msg,to):
-    if to in ids:
-        #send to client
-        emit('msg',msg,room = clients[ids.index[to]])
-    else:
-        print(msg)
+@socketio.on('get_users')
+def get_users():
+    response = dict()
+    for i in ids:
+        response[i] = clients[ids.index(i)]
+    socketio.emit('receive_users', response)
 
-@socketio.on('getOnlineUsers')
-def abcd(msg,to):
-    return ids
+@socketio.on('send_message')
+def send_message(sender,msg,receiver):
+    if receiver in ids:
+        response = dict()
+        response['from']= sender.replace('\"', '')
+        response['msg'] = msg.replace('\"', '')
+        print(response['msg'])
+        socketio.emit('receive_message', response, room=clients[ids.index(receiver)])
 
 
 if __name__ == '__main__':
