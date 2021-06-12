@@ -19,30 +19,46 @@
   <div *ngIf="isUserSelected" class="active-chat">
     <div class="message-container">
       <div class="chat-header">
-        <img src="../../../../assets/user.png" alt="">
-        <span>Chat with <strong>{{selectedUser.name}}</strong></span>
+        <img src="../../../../assets/user.png" alt="" />
+        <span>{{ selectedUser.name }}</span>
       </div>
-      <div
-        *ngFor="let receivedMsg of receivedMessages"
-        class="sent-message"
-        [ngClass]="{
-          'received-message': receivedMsg.from !== currentUserId
-        }"
-      >
-        {{ receivedMsg.msg }}
+
+      <div class="no-msg" *ngIf="receivedMessages.length === 0">
+        <img src="../../../../assets/no-message.png" alt="" />
+        <span>No messages with {{ selectedUser.name }}, yet</span>
       </div>
-      <!-- <div *ngFor="let sentMsg of sentMessages" class="sent-message">
+
+      <div class="yes-msg" *ngIf="receivedMessages.length > 0">
+        <div
+          *ngFor="let receivedMsg of receivedMessages"
+          class="sent-message"
+          [ngClass]="{
+            'received-message': receivedMsg.from !== currentUserId
+          }"
+        >
+          <div class="message">
+            {{ receivedMsg.msg }}
+          </div>
+          <div class="date">
+            {{receivedMsg.date | date: 'short'}}
+          </div>
+        </div>
+        <!-- <div *ngFor="let sentMsg of sentMessages" class="sent-message">
         {{sentMsg}}
       </div> -->
-    </div>
-    <div class="send-message">
-      <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-        <mat-form-field>
-          <mat-label>Type...</mat-label>
-          <input matInput formControlName="msg" />
-        </mat-form-field>
-        <button mat-raised-button color="accent" type="submit">Send</button>
-      </form>
+      </div>
+      <div class="send-message">
+        <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+          <mat-form-field>
+            <mat-label>Type a message here...</mat-label>
+            <input matInput formControlName="msg" />
+          </mat-form-field>
+
+          <button type="submit">
+            <img src="../../../../assets/send.png" alt="Send" />
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

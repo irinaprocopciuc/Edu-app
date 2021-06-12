@@ -20,6 +20,7 @@
 
       &.selected {
         background-color: #f5f5fe;
+        border-left: 2px solid $pink;
       }
 
       img {
@@ -43,18 +44,41 @@
 .active-chat {
   width: 80%;
 
+  .no-msg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    img {
+      width: 200px;
+      padding-bottom: 20px;
+    }
+
+    span {
+      color: $dark-grey;
+    }
+  }
+
   .message-container {
-    height: 85%;
-    //padding: 10px;
-    overflow-y: scroll;
+    height: 100%;
+
+    .no-msg, .yes-msg {
+      height: 78%;
+    }
+
+    .yes-msg {
+      overflow-y: scroll;
+    }
 
     .chat-header {
       display: flex;
       align-items: center;
-      background-color: $pink;
+      //background-color: $pink;
       opacity: 76%;
-      border: 1px solid $pink;
-      padding: 4px;
+      //border: 1px solid $pink;
+      padding: 10px;
 
       img {
         width: 30px;
@@ -67,43 +91,103 @@
       span {
         padding-left: 15px;
         font-size: 17px;
-        color: white;
+        color: black;
       }
     }
 
     .sent-message {
-      width: 48%;
-      margin-left: 49%;
+      width: 47%;
+      margin-left: 50%;
       margin-right: 10px;
-      background-color: $purple;
-      border: 1px solid $purple;
+      background-color: $pink;
+      border: 1px solid $pink;
       color: white;
       min-height: 23px;
-      padding: 7px;
-      border-radius: 10px;
+      padding: 10px;
+      border-top-right-radius: 15px;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
       margin-top: 10px;
       margin-bottom: 10px;
+      text-align: right;
+
+      .date {
+        font-size: 11px;
+      }
+
+      .message {
+        padding-bottom: 5px;
+      }
 
       &.received-message {
+        text-align: left;
         margin-left: 10px !important;
         margin-right: 50%;
         background-color: white;
         border: 1px solid #b9b6b6;
         color: $dark-grey;
+        border-bottom-right-radius: 15px;
+        border-bottom-left-radius: 0px;
       }
     }
   }
 
   .send-message {
     form {
-      padding: 10px;
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border: 1px solid rgb(247, 230, 230);
+      border-radius: 20px;
+      width: 94%;
+      margin-left: 10px;
+      padding-left: 10px;
 
       mat-form-field {
         width: 90%;
+
+        ::ng-deep .mat-form-field-wrapper {
+          padding-left: 10px;
+          padding-top: 5px;
+        }
+      }
+
+      ::ng-deep .mat-form-field .mat-form-field-ripple {
+        background-color: white;
+      }
+
+      ::ng-deep .mat-form-field .mat-form-field-required-marker {
+        color: white;
+      }
+
+      ::ng-deep .mat-form-field .mat-form-field-underline {
+        background-color: white;
+      }
+
+      ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+        color: $pink !important;
+      }
+      ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+        background-color: none;
+      }
+      ::ng-deep .mat-form-field.mat-focused .mat-form-field-required-marker {
+        color: none;
+      }
+
+      ::ng-deep .mat-form-field.mat-focused .mat-input-element {
+        color: $dark-grey;
       }
 
       button {
         margin-left: 20px;
+        background-color: white;
+        border: none;
+        padding: 0px;
+
+        img {
+          width: 30px;
+          cursor: pointer;
+        }
       }
     }
   }

@@ -38,11 +38,12 @@ def get_users():
     socketio.emit('receive_users', response)
 
 @socketio.on('send_message')
-def send_message(sender,msg,receiver):
+def send_message(sender,msg, date, receiver):
     if receiver in ids:
         response = dict()
         response['from']= sender.replace('\"', '')
         response['msg'] = msg.replace('\"', '')
+        response['date'] = date
         print(response['msg'])
         socketio.emit('receive_message', response, room=clients[ids.index(receiver)])
 
