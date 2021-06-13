@@ -66,7 +66,6 @@ export class ThesisComponent implements OnInit {
         }
         this.displayTable = this.isTableDisplayed();
         this.thesisList = themesList;
-        console.log(this.thesisList);
       }
     })
   }

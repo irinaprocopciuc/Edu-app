@@ -64,7 +64,8 @@
   .message-container {
     height: 100%;
 
-    .no-msg, .yes-msg {
+    .no-msg,
+    .yes-msg {
       height: 78%;
     }
 
@@ -189,6 +190,36 @@
           cursor: pointer;
         }
       }
+    }
+  }
+}
+
+.search-form {
+  display: flex;
+  padding: 5px;
+  margin: 10px;
+
+  border: 1px solid rgb(218, 215, 215);
+  border-radius: 20px;
+
+  input {
+    border: none;
+    width: 80%;
+    padding-left: 10px;
+    color: $dark-grey;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    border: none;
+    background-color: white;
+
+    img {
+      width: 20px;
+      cursor: pointer;
     }
   }
 }

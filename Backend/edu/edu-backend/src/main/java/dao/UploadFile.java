@@ -33,7 +33,6 @@ public class UploadFile implements UploadFileInterface {
 	@Override
 	public boolean storeFile(MultipartFile fileDetails, String courseName) {
 		try {
-			System.out.println(fileDetails.getName());
 			byte[] bytes = fileDetails.getBytes();
 			File courseFiles = new File(System.getProperty("user.dir") + "\\courseFiles");
 			if (!courseFiles.exists()) {

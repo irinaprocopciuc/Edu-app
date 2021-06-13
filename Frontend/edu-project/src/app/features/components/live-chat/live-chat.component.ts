@@ -1,7 +1,4 @@
-import { Message } from './../../../shared/types/message';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
-import { HttpHeaders } from '@angular/common/http';
 import { UserDetails } from './../../types/user-details';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -16,6 +13,7 @@ import { ChatService } from 'src/app/shared/services/chat.service';
 })
 export class LiveChatComponent implements OnInit, OnDestroy {
   users: UserDetails[];
+  displayUsers: UserDetails[];
   isUserSelected = false;
   selectedUser: UserDetails;
   currentUserId: string;
@@ -26,6 +24,10 @@ export class LiveChatComponent implements OnInit, OnDestroy {
 
   messageForm: FormGroup = new FormGroup({
     msg: new FormControl(''),
+  });
+
+  searchForm: FormGroup = new FormGroup({
+    search: new FormControl(''),
   });
 
   onlineUsers;
@@ -46,44 +48,43 @@ export class LiveChatComponent implements OnInit, OnDestroy {
       this.socket.emit('connected', JSON.stringify(this.currentUserId));
     });
 
-    this.getUsersList();
+    this.getDBUsersList();
 
     this.socket.on('receive_users', (data) => {
       this.onlineUsers = data;
-      console.log(this.onlineUsers);
     });
 
     this.socket.on('receive_message', (data) => {
       let message = data;
       this.receivedMessages.push(message);
-      console.log(this.receivedMessages);
     });
 
     this.socket.emit('get_users');
   }
 
   ngOnDestroy(): void {
-    console.log('yes');
     this.socket.disconnect();
   }
 
   selectUser(user: UserDetails): void {
     this.selectedUser = user;
     this.isUserSelected = true;
-    this.chatService.getMessages(this.currentUserId, this.selectedUser.iduser).subscribe(response => {
-      console.log(response);
-      let messages = response['response'];
-      messages.forEach((element: Message) => {
-        let displayMsg = {
-          from: element.idSender,
-          msg: element.message,
-          date: element.date
-        }
-        this.receivedMessages.push(displayMsg);
+    this.chatService
+      .getMessages(this.currentUserId, this.selectedUser.iduser)
+      .subscribe((response) => {
+        let messages = response['response'];
+        messages.forEach((element: Message) => {
+          let displayMsg = {
+            from: element.idSender,
+            msg: element.message,
+            date: element.date,
+          };
+          this.receivedMessages.push(displayMsg);
+        });
+        this.receivedMessages.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
       });
-      this.receivedMessages.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-      console.log(this.receivedMessages);
-    })
     this.receivedMessages = [];
   }
 
@@ -95,9 +96,6 @@ export class LiveChatComponent implements OnInit, OnDestroy {
       msg: message,
       date: date,
     });
-    console.log(this.receivedMessages);
-    // this.sentMessages.push(message);
-    // console.log(this.sentMessages)
 
     this.socket.emit(
       'send_message',
@@ -114,18 +112,28 @@ export class LiveChatComponent implements OnInit, OnDestroy {
       date: date.toISOString(),
     };
 
-    this.chatService.addMessage(messageToAddToDb).subscribe(res => {
-      console.log(res);
-    });
+    this.chatService.addMessage(messageToAddToDb).subscribe(() => {});
 
     this.messageForm.get('msg').setValue('');
   }
 
-  private getUsersList(): void {
+  searchPeople(): void {
+    let searchTerm = this.searchForm.getRawValue().search;
+    if (searchTerm !== '') {
+      this.displayUsers = this.displayUsers.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } else {
+      this.displayUsers = this.users;
+    }
+  }
+
+  private getDBUsersList(): void {
     this.userService.getUsers().subscribe((usersList) => {
       this.users = usersList['response'].filter(
         (res) => res.name !== this.activeUsername
       );
+      this.displayUsers = this.users;
     });
   }
 }
