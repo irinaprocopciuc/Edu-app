@@ -73,6 +73,13 @@
 
     .content {
       padding-top: 10px;
+
+      input {
+        width: 97%;
+        border: 1px solid $light-grey;
+        padding: 3px;
+        border-radius: 5px;
+      }
     }
 
     .buttons {
